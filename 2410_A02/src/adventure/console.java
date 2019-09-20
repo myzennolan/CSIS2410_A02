@@ -9,6 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import database.sqlCreate;
+import database.sqlSelect;
 
 public class console {
 
@@ -31,7 +32,13 @@ public class console {
 		System.out.println();
 		*/
 		
-		
+		executeQueries(
+				sqlSelect.selectAll("Player"),
+				sqlSelect.selectAll("PCharacter"),
+				sqlSelect.selectAll("Experience"),
+				sqlSelect.selectAll("Campaign"),
+				sqlSelect.selectAll("Weapon")
+				);
 		
 		System.out.println("Done!");
 	}
