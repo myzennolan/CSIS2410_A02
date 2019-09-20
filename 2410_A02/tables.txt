@@ -1,0 +1,47 @@
+Player:
+	id
+	FirstName varchar(256)
+	LastName varchar(256)
+	Contact varchar(256)
+
+Character
+	id Int
+	playerID Int
+	Name varchar(256)
+	Class varchar(256)
+	Exp Int
+	Str Int
+	Dex Int
+	Con Int
+	Wis Int
+	Cha Int
+	Int Int
+	
+Weapon
+	id
+	Name varchar(256)
+	Description LONGVARCHAR
+	DamageDice varchar(16)
+
+Experience
+	level Int
+	minExp Int
+	maxExp Int
+	
+Campaign
+	id Int
+	Name Int
+	Setting varchar(256)
+	Description LONGVARCHAR
+	levelLow int
+	levelHigh int
+	availableExp Int
+	
+CharcterWeapons
+	characterID int
+	weaponID int
+	
+CampaignCharacters
+	campaiognID int
+	characterID int
+	
