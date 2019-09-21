@@ -18,21 +18,20 @@ public class console {
 	public static void main(String[] args) {
 		
 		System.out.println();
-		/*  === Create Tables
+		/*  === Create Tables */
 		executeStatement(
-				//sqlCreate.tableCampaign(),
-				//sqlCreate.tableCharacter(),
-				//sqlCreate.tableExperience(),
-				//sqlCreate.tablePlayer(),
-				//sqlCreate.tableWeapon()
+				sqlCreate.tableCampaign(),
+				sqlCreate.tableCharacter(),
+				sqlCreate.tableExperience(),
+				sqlCreate.tablePlayer(),
+				sqlCreate.tableWeapon()
 				);
 		executeStatement(
-				//sqlCreate.tableCampaignCharacters(),
-				//sqlCreate.tableCharcterWeapons()
+				sqlCreate.tableCampaignCharacters(),
+				sqlCreate.tableCharcterWeapons()
 				);
 		System.out.println();
-		*/
-		//executeStatement(sqlFill.player());
+		executeStatement(sqlFill.player());
 		executeQueries(
 				sqlSelect.selectAll("Player"),
 				sqlSelect.selectAll("PCharacter"),
@@ -50,7 +49,7 @@ public class console {
 	 * @param queries
 	 */
 	private static void executeQueries(String... queries) {
-		try(Connection connection = DriverManager.getConnection("jdbc:derby:adventure");
+		try(Connection connection = DriverManager.getConnection("jdbc:derby:adventure;create=true");
 				Statement statement = connection.createStatement();){
 				
 				for(String query:queries) {
