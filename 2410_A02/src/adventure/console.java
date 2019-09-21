@@ -14,9 +14,9 @@ public class console {
 
   @SuppressWarnings("unused")
   public static void main(String[] args) {
-
     System.out.println();
-    /* === Create Tables */
+    
+    // Create
     executeStatement(
       sqlCreate.tableCampaign(),
       sqlCreate.tableCharacter(),
@@ -28,20 +28,27 @@ public class console {
       sqlCreate.tableCampaignCharacters(),
       sqlCreate.tableCharcterWeapons()
     );
+
+    // Delete
     executeStatement(sqlCreate.deleteAll("player"));
     executeStatement(sqlCreate.deleteAll("pcharacter"));
-    System.out.println();
+    executeStatement(sqlCreate.deleteAll("weapon"));
+
+    // Fill
     executeStatement(sqlFill.player());
     executeStatement(sqlFill.character());
-    System.out.println(sqlFill.character());
-    executeQueries(
-      sqlSelect.selectAll("Player"),
-      sqlSelect.selectAll("PCharacter"),
-      sqlSelect.selectAll("Experience"),
-      sqlSelect.selectAll("Campaign"),
-      sqlSelect.selectAll("Weapon")
-    );
+    executeStatement(sqlFill.weapon());
 
+    // Query
+    executeQueries(
+        sqlSelect.selectAll("Player"),
+        sqlSelect.selectAll("PCharacter"),
+        sqlSelect.selectAll("Experience"),
+        sqlSelect.selectAll("Campaign"),
+        sqlSelect.selectAll("Weapon")
+    );
+        
+    System.out.println();
     System.out.println("Done!");
   }
 

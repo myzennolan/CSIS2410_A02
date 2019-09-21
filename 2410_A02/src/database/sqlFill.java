@@ -41,4 +41,15 @@ public class sqlFill {
         + "(5, 'Lukner', 'Fighter', 64, 45, 643, 568, 31, 75),"
         + "(6, 'Lim', 'warlock', 41, 65, 53, 75, 84, 37)";
     }
+
+    public static String weapon() {
+        return ""
+        + "INSERT INTO weapon (name, description, damageDice) "
+        + "VALUES "
+        + "('Sword', 'A basic sword', 'IDK'),"
+        + "('Knife', 'A small knife', 'IDK'),"
+        + "('Staff of magic', 'Basic magic staff', 'IDK'),"
+        + "('Shield', 'Not really a weapon', 'IDK'),"
+        + "('Bow', 'A basic bow', 'IDK')";
+    }
 }
