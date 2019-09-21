@@ -46,10 +46,20 @@ public class sqlFill {
         return ""
         + "INSERT INTO weapon (name, description, damageDice) "
         + "VALUES "
-        + "('Sword', 'A basic sword', 'IDK'),"
-        + "('Knife', 'A small knife', 'IDK'),"
-        + "('Staff of magic', 'Basic magic staff', 'IDK'),"
-        + "('Shield', 'Not really a weapon', 'IDK'),"
-        + "('Bow', 'A basic bow', 'IDK')";
+        + "('Sword', 'A basic sword', '1D4'),"
+        + "('Knife', 'A small knife', '1D6'),"
+        + "('Staff of magic', 'Basic magic staff', '5D4'),"
+        + "('Shield', 'Not really a weapon', '9D7'),"
+        + "('Bow', 'A basic bow', '6D6')";
+    }
+
+    public static String experience() {
+        return ""
+        + "INSERT INTO experience (level, minExp, maxExp) "
+        + "VALUES "
+        + "(1, 6, 10),"
+        + "(5, 20, 500),"
+        + "(7, 32, 68),"
+        + "(8, 43, 87)";
     }
 }

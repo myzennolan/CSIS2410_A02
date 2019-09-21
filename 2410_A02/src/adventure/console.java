@@ -15,7 +15,7 @@ public class console {
   @SuppressWarnings("unused")
   public static void main(String[] args) {
     System.out.println();
-    
+
     // Create
     executeStatement(
       sqlCreate.tableCampaign(),
@@ -33,11 +33,13 @@ public class console {
     executeStatement(sqlCreate.deleteAll("player"));
     executeStatement(sqlCreate.deleteAll("pcharacter"));
     executeStatement(sqlCreate.deleteAll("weapon"));
+    executeStatement(sqlCreate.deleteAll("experience"));
 
     // Fill
     executeStatement(sqlFill.player());
     executeStatement(sqlFill.character());
     executeStatement(sqlFill.weapon());
+    executeStatement(sqlFill.experience());
 
     // Query
     executeQueries(
