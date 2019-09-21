@@ -28,8 +28,12 @@ public class console {
       sqlCreate.tableCampaignCharacters(),
       sqlCreate.tableCharcterWeapons()
     );
+    executeStatement(sqlCreate.deleteAll("player"));
+    executeStatement(sqlCreate.deleteAll("pcharacter"));
     System.out.println();
     executeStatement(sqlFill.player());
+    executeStatement(sqlFill.character());
+    System.out.println(sqlFill.character());
     executeQueries(
       sqlSelect.selectAll("Player"),
       sqlSelect.selectAll("PCharacter"),
@@ -57,7 +61,7 @@ public class console {
         while (results.next()) {
 
           for (int i = 1; i <= metaData.getColumnCount(); i++) {
-            System.out.print(results.getObject(i).toString() + "\t");
+            System.out.print(results.getObject(i) + "\t");
           }
           System.out.println();
         }
@@ -79,9 +83,9 @@ public class console {
 
     } catch (SQLException e) {
         // Ignore 'table already exists' errors
-        if (e.getErrorCode() == 30000) {
-            return;
-        }
+        // if (e.getErrorCode() == 30000) {
+        //     return;
+        // }
 
         e.printStackTrace();
     }

@@ -5,7 +5,11 @@ public class sqlCreate {
 	public static String adventureDatabase(){
 		return "CREATE DATABASE AdventureDB";	
 	}
-	*/
+    */
+    
+    public static String deleteAll(String table) {
+        return "DELETE FROM " + table;
+    }
 	
 	public static String tablePlayer() {
 		return "CREATE TABLE Player (" + 
