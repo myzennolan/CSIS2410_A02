@@ -9,6 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import database.sqlCreate;
+import database.sqlFill;
 import database.sqlSelect;
 
 public class console {
@@ -31,7 +32,7 @@ public class console {
 				);
 		System.out.println();
 		*/
-		
+		//executeStatement(sqlFill.player());
 		executeQueries(
 				sqlSelect.selectAll("Player"),
 				sqlSelect.selectAll("PCharacter"),
