@@ -2,6 +2,11 @@ package database;
 
 public class sqlFill {
 	
+	/**
+	 * String for inserting default records into the player table
+	 * 
+	 * @return Insert statement with 20 records
+	 */
 	public static String player() {
 		return ""
 				+ "INSERT INTO player (FirstName,LastName,Contact)"
@@ -30,18 +35,28 @@ public class sqlFill {
   }
   
     //Druid wizard elf knight mage archer warlock Monk paladin ranger rogue bard
+	/**
+	 * String for inserting default values into the pCharacter table
+	 * 
+	 * @return Insert String
+	 */
     public static String character() {
         return ""
-        + "INSERT INTO pCharacter (playerId, name, class, experience, dexterity, constitution, wisdom, charisma, intelligence) "
+        + "INSERT INTO pCharacter (playerId, name, class, experience, strength, dexterity, constitution, wisdom, charisma, intelligence) "
         + "VALUES "
-        + "(1, 'Bob', 'Knight', 0, 10, 15, 1, 50, 6),"
-        + "(2, 'Winston', 'Mage', 5, 3, 500, 3, 6, 0),"
-        + "(3, 'Wiley', 'Archer', 3, 70, 49, 1, 0, 54),"
-        + "(4, 'Mangone', 'Knight', 6, 80, 1, 543, 90, 63),"
-        + "(5, 'Lukner', 'Fighter', 64, 45, 643, 568, 31, 75),"
-        + "(6, 'Lim', 'warlock', 41, 65, 53, 75, 84, 37)";
+        + "(1, 'Bob', 'Knight', 0, 10, 10, 15, 1, 50, 6),"
+        + "(2, 'Winston', 'Mage', 5, 3, 3, 500, 3, 6, 0),"
+        + "(3, 'Wiley', 'Archer', 3, 70, 49, 49, 1, 0, 54),"
+        + "(4, 'Mangone', 'Knight', 6, 80, 1, 1, 543, 90, 63),"
+        + "(5, 'Lukner', 'Fighter', 64, 45, 643, 643, 568, 31, 75),"
+        + "(6, 'Lim', 'Warlock', 41, 65, 53, 75,  75, 84, 37)";
     }
 
+    /**
+     * STring for creating default weapons records in weapons table
+     * 
+     * @return Insert String
+     */
     public static String weapon() {
         return ""
         + "INSERT INTO weapon (name, description, damageDice) "
@@ -53,13 +68,24 @@ public class sqlFill {
         + "('Bow', 'A basic bow', '6D6')";
     }
 
+    /**
+     * Default experience table records
+     * 
+     * @return insert string
+     */
     public static String experience() {
         return ""
         + "INSERT INTO experience (level, minExp, maxExp) "
         + "VALUES "
-        + "(1, 6, 10),"
-        + "(5, 20, 500),"
-        + "(7, 32, 68),"
-        + "(8, 43, 87)";
+        + "(1, 0, 999),"
+        + "(2, 1000, 1999),"
+        + "(3, 2000, 2999),"
+        + "(4, 3000, 3999),"
+        + "(5, 4000, 4999),"
+        + "(6, 5000, 5999),"
+        + "(7, 6000, 6999),"
+        + "(8, 7000, 7999),"
+        + "(9, 8000, 8999),"
+        + "(10, 9000, 9999)";
     }
 }
