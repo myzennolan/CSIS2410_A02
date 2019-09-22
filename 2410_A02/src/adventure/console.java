@@ -14,8 +14,16 @@ public class console {
 
   @SuppressWarnings("unused")
   public static void main(String[] args) {
-    System.out.println();
+    System.out.println(""
+    		+ "The primary function of this database application is to serve as a role \r\n" + 
+    		"playing game's catalog of players, their charcters, the character's experience\r\n" + 
+    		"and equipment, and what capaigns they are currently involved in.\r\n" + 
+    		"The application will allow for the creation of new players, new characters \r\n" + 
+    		"for those players, new equipments, new campaigns, and allow the customization \r\n" + 
+    		"of character levels universally by altering the level requirements for every \r\n" + 
+    		"character in the system.");
 
+    System.out.println();
     // Create
     if(true) {
 

@@ -1,5 +1,11 @@
 package database;
 
+/**
+ * Repository of table maintenance/creation scripts
+ * 
+ * @author Nolan Harris, Trevor Hodsdon, Dominick Wiley
+ *
+ */
 public class sqlCreate {
 	/*
 	public static String adventureDatabase(){
@@ -7,14 +13,31 @@ public class sqlCreate {
 	}
     */
 
+	/**
+	 * truncates the referenced table
+	 * 
+	 * @param table
+	 * @return table truncation script
+	 */
     public static String deleteAll(String table) {
         return "truncate table " + table;
     }
     
+    /**
+     * drops the referenced table
+     * 
+     * @param table
+     * @return drop table script
+     */
     public static String deleteTable(String table) {
         return "drop table " + table;
     }
 	
+    /**
+     * creates the player table
+     * 
+     * @return player table creation script
+     */
 	public static String tablePlayer() {
 		return "CREATE TABLE Player (" + 
 		"id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), \r\n" + 
@@ -25,6 +48,11 @@ public class sqlCreate {
 		")";
 	}
 	
+    /**
+     * creates the pCharacter table
+     * 
+     * @return pCharacter table creation script
+     */
 	public static String tableCharacter() {
 		return " " + 
 		"CREATE TABLE pCharacter ( " + 
@@ -43,6 +71,11 @@ public class sqlCreate {
 		") ";
 	}
 	
+    /**
+     * creates the weapon table
+     * 
+     * @return weapon table creation script
+     */
 	public static String tableWeapon() {
 		return " " + 
 		"CREATE TABLE Weapon ( " + 
@@ -54,7 +87,11 @@ public class sqlCreate {
 		")";
 	};
 
-
+    /**
+     * creates the experience table
+     * 
+     * @return experience table creation script
+     */
 	public static String tableExperience() {
 		return " " + 
 		"CREATE TABLE Experience ( " + 
@@ -64,6 +101,11 @@ public class sqlCreate {
 		") " ;
 	}
 
+    /**
+     * creates the campaign table
+     * 
+     * @return campaign table creation script
+     */
 	public static String tableCampaign() {
 		return " " + 
 		"CREATE TABLE Campaign ( " + 
@@ -78,6 +120,11 @@ public class sqlCreate {
 		") ";
 	}
 	
+    /**
+     * creates the lookup table for joining characters and weapons
+     * 
+     * @return CharacterWeapons table creation script
+     */
 	public static String tableCharcterWeapons() {
 		return " " + 
 		"CREATE TABLE CharacterWeapons ( " + 
@@ -86,6 +133,11 @@ public class sqlCreate {
 		") ";
 	}
 	
+    /**
+     * creates the lookup table for joining characters and campaign
+     * 
+     * @return CampaignCharacters table creation script
+     */
 	public static String tableCampaignCharacters() { 
 		return " " + 
 		"CREATE TABLE CampaignCharacters ( " + 
