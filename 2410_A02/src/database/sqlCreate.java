@@ -6,9 +6,13 @@ public class sqlCreate {
 		return "CREATE DATABASE AdventureDB";	
 	}
     */
-    
+
     public static String deleteAll(String table) {
-        return "DELETE FROM " + table;
+        return "truncate table " + table;
+    }
+    
+    public static String deleteTable(String table) {
+        return "drop table " + table;
     }
 	
 	public static String tablePlayer() {

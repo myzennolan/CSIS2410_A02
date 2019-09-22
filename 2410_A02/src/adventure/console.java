@@ -17,6 +17,16 @@ public class console {
     System.out.println();
 
     // Create
+    if(true) {
+
+        executeStatement(sqlCreate.deleteTable("player"));
+        executeStatement(sqlCreate.deleteTable("pcharacter"));
+        executeStatement(sqlCreate.deleteTable("weapon"));
+        executeStatement(sqlCreate.deleteTable("experience"));
+        executeStatement(sqlCreate.deleteTable("campaign"));
+        executeStatement(sqlCreate.deleteTable("CampaignCharacters"));
+        executeStatement(sqlCreate.deleteTable("CharacterWeapons"));
+        
     executeStatement(
       sqlCreate.tableCampaign(),
       sqlCreate.tableCharacter(),
@@ -28,8 +38,9 @@ public class console {
       sqlCreate.tableCampaignCharacters(),
       sqlCreate.tableCharcterWeapons()
     );
+    
 
-    // Delete
+    // "Truncate"
     executeStatement(sqlCreate.deleteAll("player"));
     executeStatement(sqlCreate.deleteAll("pcharacter"));
     executeStatement(sqlCreate.deleteAll("weapon"));
@@ -40,7 +51,7 @@ public class console {
     executeStatement(sqlFill.character());
     executeStatement(sqlFill.weapon());
     executeStatement(sqlFill.experience());
-
+    }
     // Query
     executeQueries(
         sqlSelect.selectAll("Player"),
@@ -60,19 +71,27 @@ public class console {
    * @param queries
    */
   private static void executeQueries(String... queries) {
-    try (Connection connection = DriverManager.getConnection("jdbc:derby:adventure;create=true");
+    try (Connection connection = DriverManager.getConnection("jdbc:derby:adventure;");
         Statement statement = connection.createStatement();) {
 
       for (String query : queries) {
         ResultSet results = statement.executeQuery(query);
         ResultSetMetaData metaData = results.getMetaData();
-
+        int j = 1;
         while (results.next()) {
-
-          for (int i = 1; i <= metaData.getColumnCount(); i++) {
-            System.out.print(results.getObject(i) + "\t");
-          }
-          System.out.println();
+        	
+        	if(j == 1) {
+            for (int i = 1; i <= metaData.getColumnCount(); i++) {
+              System.out.print(metaData.getColumnName(i) + "\t");
+            }
+            System.out.println();
+            j++;
+        	}
+            
+            for (int i = 1; i <= metaData.getColumnCount(); i++) {
+                System.out.print(results.getObject(i) + "\t");
+              }
+              System.out.println();
         }
 
         System.out.println();
