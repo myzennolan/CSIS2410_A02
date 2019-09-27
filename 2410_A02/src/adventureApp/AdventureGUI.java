@@ -1,16 +1,20 @@
 package adventureApp;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.GridLayout;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
-import java.awt.GridLayout;
-import javax.swing.JPanel;
-import javax.swing.JLabel;
 
 public class AdventureGUI extends JFrame {
 //test
@@ -75,9 +79,42 @@ public class AdventureGUI extends JFrame {
 		
 		// Fill in all the campaigns
 		for(String name : testData) {
-			JLabel newLabel = new JLabel(name);
-			newLabel.setBorder(new EmptyBorder(0,0,10,0)); // Add padding to space out labels
-			campaignList.add(newLabel);
+			JButton newButton = new JButton(name);
+			newButton.setBorder(new EmptyBorder(5,5,5,5)); // Add padding to space out labels
+			
+			// Add listener for clicks
+			newButton.addActionListener(event -> {
+				System.out.println("Clicked: " + newButton.getText());
+			});
+			
+			// Add hover effects
+			newButton.setOpaque(true);
+			newButton.addMouseListener(new MouseListener() {
+				@Override
+				public void mouseEntered(MouseEvent e) {
+					newButton.setBackground(Color.LIGHT_GRAY);
+					
+				}
+
+				@Override
+				public void mouseExited(MouseEvent e) {
+					newButton.setBackground(UIManager.getColor("control"));
+					
+				}
+
+				// Not used
+				@Override
+				public void mouseClicked(MouseEvent e) {}
+
+				@Override
+				public void mousePressed(MouseEvent e) {}
+
+				@Override
+				public void mouseReleased(MouseEvent e) {}
+				
+			});
+			
+			campaignList.add(newButton);
 		}
 		
 		// Make a scroll pane and wrap the campaignList
