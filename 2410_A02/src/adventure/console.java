@@ -26,7 +26,7 @@ public class console {
     System.out.println();
     // Create
     if(true) {
-
+/*
         executeStatement(sqlCreate.deleteTable("player"));
         executeStatement(sqlCreate.deleteTable("pcharacter"));
         executeStatement(sqlCreate.deleteTable("weapon"));
@@ -34,7 +34,7 @@ public class console {
         executeStatement(sqlCreate.deleteTable("campaign"));
         executeStatement(sqlCreate.deleteTable("CampaignCharacters"));
         executeStatement(sqlCreate.deleteTable("CharacterWeapons"));
-        
+  */      
     executeStatement(
       sqlCreate.tableCampaign(),
       sqlCreate.tableCharacter(),
