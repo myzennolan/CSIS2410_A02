@@ -110,8 +110,8 @@ public class sqlCreate {
 		return " " + 
 		"CREATE TABLE Campaign ( " + 
 		"id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 10, INCREMENT BY 1), \r\n" + 
-		"Name int, \r\n" + 
-		"Setting varchar(255), \r\n" + 
+		"Name varchar(1024), \r\n" + 
+		"Setting varchar(1024), \r\n" + 
 		"Description VARCHAR(4000), \r\n" + 
 		"levelLow int, \r\n" + 
 		"levelHigh int, \r\n" + 
