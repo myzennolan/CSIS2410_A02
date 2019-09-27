@@ -1,4 +1,4 @@
-package adventure;
+package adventureApp;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
