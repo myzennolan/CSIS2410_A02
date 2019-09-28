@@ -9,6 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import database.sqlCharacter;
 import database.sqlPlayer;
 
 public class DB {
@@ -17,21 +18,31 @@ public class DB {
 		ArrayList<Player> players;
 		String sql = (id == 0 ? sqlPlayer.selectAllPlayers():sqlPlayer.selectPlayerByID(id));
 		
-		players = executeQueries(sql);
+		players = executePlayerQueries(sql);
 		//ResultSetMetaData metaData = results.getMetaData();
 		return players;
 		
 	}
 	
-	public AdvCharacter[] getCharacters() {
-		return null;
+	public static ArrayList<AdvCharacter> getCharacters(int id) throws SQLException {
+
+		ArrayList<AdvCharacter> characters = new ArrayList<>();
+		String sql = (id == 0 ? sqlCharacter.selectAllCharacters():sqlCharacter.selectCharacterByID(id));
+		
+		characters = executeCharacterQueries(sql);
+		
+		
+		
+		//characters = executeQueries(sql);
+		//ResultSetMetaData metaData = results.getMetaData();
+		return characters;
 	}
 	
 	public Campaign[] getCampaigns() {
 		return null;
 	}
 	
-	private static ArrayList<Player> executeQueries(String query) {
+	private static ArrayList<Player> executePlayerQueries(String query) {
 		ArrayList<Player> players = new ArrayList<>();
 	    try (Connection connection = DriverManager.getConnection("jdbc:derby:adventure;");
 	        Statement statement = connection.createStatement();) {
@@ -53,6 +64,42 @@ public class DB {
 	        System.out.println("Got "+players.size()+" Players");
 	        
 	        return players;
+	   //   }
+	    } catch (SQLException e) {
+	      e.printStackTrace();
+	    }
+		return null;
+	  }
+	
+	private static ArrayList<AdvCharacter> executeCharacterQueries(String query) {
+		ArrayList<AdvCharacter> characters = new ArrayList<>();
+	    try (Connection connection = DriverManager.getConnection("jdbc:derby:adventure;");
+	        Statement statement = connection.createStatement();) {
+	    	
+	     // for (String query : queries) {
+	        ResultSet results = statement.executeQuery(query);
+	      
+	        ResultSetMetaData metaData = results.getMetaData();
+	        while (results.next()) {
+
+	          	 characters.add(new AdvCharacter(
+	          					 (int) results.getObject(1),
+	          					 (int) results.getObject(2),
+	          					 (String) results.getObject(3),
+	          					 (String) results.getObject(4),
+	          					 (int) results.getObject(5),
+	          					 (int) results.getObject(6),
+	          					 (int) results.getObject(7),
+	          					 (int) results.getObject(8),
+	          					 (int) results.getObject(9),
+	          					 (int) results.getObject(10),
+	          					 (int) results.getObject(11)
+	          					 ));
+	          }
+
+	        System.out.println("Got "+characters.size()+" Characters");
+	        
+	        return characters;
 	   //   }
 	    } catch (SQLException e) {
 	      e.printStackTrace();
@@ -82,8 +129,8 @@ public class DB {
 		
 		try {
 			
-			for(Player p:getPlayers(0)) {
-				System.out.println(p.getFirstName());
+			for(AdvCharacter p:getCharacters(0)) {
+				System.out.println(p.getName());
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

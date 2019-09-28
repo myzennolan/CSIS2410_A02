@@ -1,17 +1,17 @@
 package adventureApp;
 
 public class AdvCharacter {
-	private int id;// int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 10, INCREMENT BY 1), \r\n" + 
-	private int playerID;// int, \r\n" + 
-	private String Name;// varchar(255), \r\n" + 
-	private String CharClass;// varchar(255), \r\n" + 
-	private int Experience;// int, \r\n" + 
-	private int Strength;// int, \r\n" + 
-	private int Dexterity;// int, \r\n" + 
-	private int Constitution;// int, \r\n" + 
-	private int Wisdom;// int, \r\n" + 
-	private int Charisma;// int, \r\n" + 
-	private int Intelligence;// int, \r\n" + 
+	private int id;
+	private int playerID;
+	private String Name;
+	private String CharClass;
+	private int Experience;
+	private int Strength;
+	private int Dexterity;
+	private int Constitution;
+	private int Wisdom;
+	private int Charisma;
+	private int Intelligence;
 	
 	public String getName() {
 		return Name;
@@ -93,8 +93,20 @@ public class AdvCharacter {
 		return playerID;
 	}
 
-	public AdvCharacter() {
-		// TODO Auto-generated constructor stub
+	public AdvCharacter(int id, int playerID, String name, String charClass, int experience, int strength,
+			int dexterity, int constitution, int wisdom, int charisma, int intelligence) {
+		super();
+		this.id = id;
+		this.playerID = playerID;
+		Name = name;
+		CharClass = charClass;
+		Experience = experience;
+		Strength = strength;
+		Dexterity = dexterity;
+		Constitution = constitution;
+		Wisdom = wisdom;
+		Charisma = charisma;
+		Intelligence = intelligence;
 	}
 
 	public static void main(String[] args) {

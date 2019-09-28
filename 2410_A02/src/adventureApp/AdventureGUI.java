@@ -165,8 +165,56 @@ public class AdventureGUI extends JFrame {
 		JLabel lblPlayers = new JLabel("Players");
 		playersPanel.add(lblPlayers, BorderLayout.NORTH);
 		
-		JPanel playersListPanel = new JPanel();
-		playersPanel.add(playersListPanel, BorderLayout.CENTER);
+		JPanel playersList = new JPanel();
+		playersPanel.setAutoscrolls(true);
+		
+        JScrollPane scrollPane = new JScrollPane(playersList);
+		playersList.setLayout(new BoxLayout(playersList, BoxLayout.Y_AXIS)); 
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setBounds(50, 30, 300, 50);
+		playersPanel.add(scrollPane, BorderLayout.CENTER);
+		
+		// Fill in all the campaigns
+				for(Player p : players) {
+					JButton newButton = new JButton(p.getFirstName()+" "+p.getLastName());
+					newButton.setBorder(new EmptyBorder(5,5,5,5)); // Add padding to space out labels
+					
+					// Add listener for clicks
+					newButton.addActionListener(event -> {
+						System.out.println("Clicked: " + newButton.getText());
+						selectedPlayer = p.getId();
+					});
+					
+					// Add hover effects
+					newButton.setOpaque(true);
+					newButton.addMouseListener(new MouseListener() {
+						@Override
+						public void mouseEntered(MouseEvent e) {
+							newButton.setBackground(Color.LIGHT_GRAY);
+							
+						}
+
+						@Override
+						public void mouseExited(MouseEvent e) {
+							newButton.setBackground(UIManager.getColor("control"));
+							
+						}
+
+						// Not used
+						@Override
+						public void mouseClicked(MouseEvent e) {}
+
+						@Override
+						public void mousePressed(MouseEvent e) {}
+
+						@Override
+						public void mouseReleased(MouseEvent e) {}
+						
+					});
+					
+					playersList.add(newButton);
+				}
 	}
 
 }
