@@ -4,15 +4,15 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.sql.SQLException;
-import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.UIManager;
@@ -20,10 +20,6 @@ import javax.swing.border.EmptyBorder;
 
 public class AdventureGUI extends JFrame {
 //test
-	private int selectedPlayer = 0;
-	private int selectedCharacter = 0;
-	private int selectedCampaign = 0;
-	
 	private JPanel contentPane;
 
 	/**
@@ -53,44 +49,44 @@ public class AdventureGUI extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new GridLayout(0, 4, 0, 0));
 		
-		try {
-			playersPanel();
-			charactersPanel();			
-			campaignPanel();
-			
-			
-			
-			
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		JPanel playersPanel = new JPanel();
+		contentPane.add(playersPanel);
+		playersPanel.setLayout(new BorderLayout(0, 0));
 		
+		JLabel lblPlayers = new JLabel("Players");
+		playersPanel.add(lblPlayers, BorderLayout.NORTH);
 		
-		/* Campaign Panel */
-		
-		/* Info panel */
-		JPanel infoPanel = new JPanel();
-		contentPane.add(infoPanel);
-		infoPanel.setLayout(new BorderLayout(0, 0));
-		
-		JLabel lblInfo = new JLabel("Info");
-		infoPanel.add(lblInfo, BorderLayout.NORTH);
-	}
-
-	private void charactersPanel() {
+		/* Character Panel */
 		JPanel charactersPanel = new JPanel();
 		contentPane.add(charactersPanel);
 		charactersPanel.setLayout(new BorderLayout(0, 0));
 		
 		JLabel lblCharacters = new JLabel("Characters");
 		charactersPanel.add(lblCharacters, BorderLayout.NORTH);
-	}
-
-	private void campaignPanel() {
-
-		ArrayList<Campaign> campaigns = new ArrayList<>();
 		
+		CharacterPanel characterList = new CharacterPanel();
+		charactersPanel.add(characterList);
+		
+		Character[] testCharacters = {
+				new Character(1, 1, "Dom", "Mage"),
+				new Character(2, 1, "Nick", "Knight"),
+				new Character(3, 2, "Nolan", "Cleric"),
+				new Character(4, 3, "Trevor", "Archer")
+		};
+		
+		for (Character c : testCharacters)
+		{
+			JButton newButton = new JButton(c.getName());
+			newButton.setBorder(new EmptyBorder(5, 5, 5, 5));
+			characterList.add(newButton);
+			
+			newButton.addActionListener(event -> {
+				JOptionPane.showMessageDialog(null, c.toString(), "Character: " + c.getName(), JOptionPane.INFORMATION_MESSAGE);
+			});
+		}
+		
+		
+		/* Campaign Panel */
 		String[] testData = {"Campaign One", "Campaign Two", "Campaign Three", "Campaign Four", "Campaign Five"};
 		
 		// Make campaign panel
@@ -152,21 +148,14 @@ public class AdventureGUI extends JFrame {
 		
 		// Done building panel, add it to the window
 		contentPane.add(campaignPanel);
-	}
-
-	private void playersPanel() throws SQLException {
-
-		ArrayList<Player> players = DB.getPlayers(0);
 		
-		JPanel playersPanel = new JPanel();
-		contentPane.add(playersPanel);
-		playersPanel.setLayout(new BorderLayout(0, 0));
+		/* Info panel */
+		JPanel infoPanel = new JPanel();
+		contentPane.add(infoPanel);
+		infoPanel.setLayout(new BorderLayout(0, 0));
 		
-		JLabel lblPlayers = new JLabel("Players");
-		playersPanel.add(lblPlayers, BorderLayout.NORTH);
-		
-		JPanel playersListPanel = new JPanel();
-		playersPanel.add(playersListPanel, BorderLayout.CENTER);
+		JLabel lblInfo = new JLabel("Info");
+		infoPanel.add(lblInfo, BorderLayout.NORTH);
 	}
 
 }
