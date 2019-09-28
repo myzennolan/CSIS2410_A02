@@ -6,6 +6,8 @@ import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -18,7 +20,14 @@ import javax.swing.border.EmptyBorder;
 
 public class AdventureGUI extends JFrame {
 //test
+	private int selectedPlayer = 0;
+	private int selectedCharacter = 0;
+	private int selectedCampaign = 0;
+	
+	private JPanel campaignList = new JPanel();
 	private JPanel contentPane;
+	private ArrayList<AdvCharacter> advCharacters = new ArrayList<>();
+	private ArrayList<Campaign> campaigns = new ArrayList<>();
 
 	/**
 	 * Launch the application.
@@ -47,21 +56,41 @@ public class AdventureGUI extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new GridLayout(0, 4, 0, 0));
 		
-		JPanel playersPanel = new JPanel();
-		contentPane.add(playersPanel);
-		playersPanel.setLayout(new BorderLayout(0, 0));
+		try {
+			playersPanel();
+			charactersPanel();			
+			campaignPanel();
+			
+			
+			
+			
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
-		JLabel lblPlayers = new JLabel("Players");
-		playersPanel.add(lblPlayers, BorderLayout.NORTH);
 		
+		/* Campaign Panel */
+		
+		/* Info panel */
+		JPanel infoPanel = new JPanel();
+		contentPane.add(infoPanel);
+		infoPanel.setLayout(new BorderLayout(0, 0));
+		
+		JLabel lblInfo = new JLabel("Info");
+		infoPanel.add(lblInfo, BorderLayout.NORTH);
+	}
+
+	private void charactersPanel() {
 		JPanel charactersPanel = new JPanel();
 		contentPane.add(charactersPanel);
 		charactersPanel.setLayout(new BorderLayout(0, 0));
 		
 		JLabel lblCharacters = new JLabel("Characters");
 		charactersPanel.add(lblCharacters, BorderLayout.NORTH);
-		
-		/* Campaign Panel */
+	}
+
+	private void campaignPanel() {
 		String[] testData = {"Campaign One", "Campaign Two", "Campaign Three", "Campaign Four", "Campaign Five"};
 		
 		// Make campaign panel
@@ -123,14 +152,21 @@ public class AdventureGUI extends JFrame {
 		
 		// Done building panel, add it to the window
 		contentPane.add(campaignPanel);
+	}
+
+	private void playersPanel() throws SQLException {
+
+		ArrayList<Player> players = DB.getPlayers(0);
 		
-		/* Info panel */
-		JPanel infoPanel = new JPanel();
-		contentPane.add(infoPanel);
-		infoPanel.setLayout(new BorderLayout(0, 0));
+		JPanel playersPanel = new JPanel();
+		contentPane.add(playersPanel);
+		playersPanel.setLayout(new BorderLayout(0, 0));
 		
-		JLabel lblInfo = new JLabel("Info");
-		infoPanel.add(lblInfo, BorderLayout.NORTH);
+		JLabel lblPlayers = new JLabel("Players");
+		playersPanel.add(lblPlayers, BorderLayout.NORTH);
+		
+		JPanel playersListPanel = new JPanel();
+		playersPanel.add(playersListPanel, BorderLayout.CENTER);
 	}
 
 }

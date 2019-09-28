@@ -34,8 +34,16 @@ public class Player {
 		return id;
 	}
 
-	public Player() {
-		// TODO Auto-generated constructor stub
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public Player(int id, String firstName, String lastName, String contact) {
+		super();
+		this.id = id;
+		FirstName = firstName;
+		LastName = lastName;
+		Contact = contact;
 	}
 
 	public static void main(String[] args) {
