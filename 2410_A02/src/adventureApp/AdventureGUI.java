@@ -17,6 +17,13 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JTextField;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+import java.awt.Rectangle;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class AdventureGUI extends JFrame {
 //test
@@ -25,6 +32,9 @@ public class AdventureGUI extends JFrame {
 	private int selectedCampaign = 0;
 	
 	private JPanel contentPane;
+	private JTextField txtFirstName;
+	private JTextField txtLastName;
+	private JTextField textField;
 
 	/**
 	 * Launch the application.
@@ -57,9 +67,7 @@ public class AdventureGUI extends JFrame {
 			playersPanel();
 			charactersPanel();			
 			campaignPanel();
-			
-			
-			
+			infoPanel();	
 			
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
@@ -70,12 +78,66 @@ public class AdventureGUI extends JFrame {
 		/* Campaign Panel */
 		
 		/* Info panel */
+	}
+
+	private void infoPanel() {
 		JPanel infoPanel = new JPanel();
 		contentPane.add(infoPanel);
 		infoPanel.setLayout(new BorderLayout(0, 0));
 		
 		JLabel lblInfo = new JLabel("Info");
 		infoPanel.add(lblInfo, BorderLayout.NORTH);
+		
+		JPanel playerActionPanel = new JPanel();
+		infoPanel.add(playerActionPanel, BorderLayout.CENTER);
+		playerActionPanel.setLayout(new BoxLayout(playerActionPanel, BoxLayout.Y_AXIS));
+		
+		JLabel lblFirstName = new JLabel("First Name");
+		playerActionPanel.add(lblFirstName);
+		
+		txtFirstName = new JTextField();
+		txtFirstName.setBounds(new Rectangle(0, 0, 150, 50));
+		playerActionPanel.add(txtFirstName);
+		txtFirstName.setColumns(80);
+		
+		JLabel label = new JLabel("");
+		label.setLabelFor(txtFirstName);
+		playerActionPanel.add(label);
+		
+		JLabel label_1 = new JLabel("");
+		playerActionPanel.add(label_1);
+		
+		JLabel lblLastName = new JLabel("Last Name");
+		playerActionPanel.add(lblLastName);
+		
+		txtLastName = new JTextField();
+		txtLastName.setColumns(10);
+		playerActionPanel.add(txtLastName);
+		
+		JLabel label_2 = new JLabel("");
+		playerActionPanel.add(label_2);
+		
+		JLabel lblContact = new JLabel("Contact");
+		playerActionPanel.add(lblContact);
+		
+		JLabel label_3 = new JLabel("");
+		playerActionPanel.add(label_3);
+		
+		textField = new JTextField();
+		textField.setColumns(10);
+		playerActionPanel.add(textField);
+		
+		JButton btnCommit = new JButton("Commit to DB");
+		playerActionPanel.add(btnCommit);
+		
+		JButton btnDeletePlayer = new JButton("Delete Player");
+		playerActionPanel.add(btnDeletePlayer);
+		
+		JLabel label_4 = new JLabel("");
+		playerActionPanel.add(label_4);
+		
+		JLabel label_5 = new JLabel("");
+		playerActionPanel.add(label_5);
 	}
 
 	private void charactersPanel() {
@@ -89,7 +151,7 @@ public class AdventureGUI extends JFrame {
 
 	private void campaignPanel() {
 
-		ArrayList<Campaign> campaigns = new ArrayList<>();
+		ArrayList<Campaign> campaigns = DB.getCampaigns(0);
 		
 		String[] testData = {"Campaign One", "Campaign Two", "Campaign Three", "Campaign Four", "Campaign Five"};
 		
@@ -107,13 +169,13 @@ public class AdventureGUI extends JFrame {
 		campaignList.setLayout(new BoxLayout(campaignList, BoxLayout.Y_AXIS)); // Box layout adds vertically
 		
 		// Fill in all the campaigns
-		for(String name : testData) {
-			JButton newButton = new JButton(name);
+		for(Campaign c : campaigns) {
+			JButton newButton = new JButton(c.getName());
 			newButton.setBorder(new EmptyBorder(5,5,5,5)); // Add padding to space out labels
 			
 			// Add listener for clicks
 			newButton.addActionListener(event -> {
-				System.out.println("Clicked: " + newButton.getText());
+				System.out.println("Clicked: " + c.getName());
 			});
 			
 			// Add hover effects
@@ -215,6 +277,15 @@ public class AdventureGUI extends JFrame {
 					
 					playersList.add(newButton);
 				}
+				
+				JButton btnNewPlayer = new JButton("New Player");
+				btnNewPlayer.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						
+					}
+					
+				});
+				playersPanel.add(btnNewPlayer, BorderLayout.SOUTH);
 	}
 
 }
