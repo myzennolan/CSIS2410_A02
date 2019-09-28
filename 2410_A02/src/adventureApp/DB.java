@@ -24,6 +24,36 @@ public class DB {
 		return players;
 		
 	}
+
+	public static void deletePlayer(int id) throws SQLException {
+		ArrayList<Player> players;
+		String sql = sqlPlayer.deletePlayerByID(id);
+		
+		executeStatement(sql);
+		//ResultSetMetaData metaData = results.getMetaData();
+		//return players;
+		
+	}
+
+	public static void commitPlayerToDB(Player player) throws SQLException {
+		//ArrayList<Player> players;
+		String sql = (player.getId() == 0 ? sqlPlayer.insertPlayer(player) :  sqlPlayer.updatePlayer(player));
+		
+		executeStatement(sql);
+		//ResultSetMetaData metaData = results.getMetaData();
+		//return players;
+		
+	}
+
+	public static void addPlayer(Player player) throws SQLException {
+		//ArrayList<Player> players;
+		String sql = sqlPlayer.insertPlayer(player);
+		
+		executeStatement(sql);
+		//ResultSetMetaData metaData = results.getMetaData();
+		//return players;
+		
+	}
 	
 	public static ArrayList<AdvCharacter> getCharacters(int id) throws SQLException {
 

@@ -27,14 +27,24 @@ import java.awt.event.ActionEvent;
 
 public class AdventureGUI extends JFrame {
 //test
-	private int selectedPlayer = 0;
 	private int selectedCharacter = 0;
 	private int selectedCampaign = 0;
 	
 	private JPanel contentPane;
+	
+//players
+	private int selectedPlayer = 0;
+	private JButton btnDeletePlayer = new JButton("Delete Player");	
+	private JPanel playersPanel = new JPanel();
 	private JTextField txtFirstName;
 	private JTextField txtLastName;
-	private JTextField textField;
+	private JTextField txtContact;
+	private JButton[] playerButtons;		
+	private JPanel playersList = new JPanel();	
+    private JScrollPane scrollPane = new JScrollPane(playersList);
+	
+
+	private ArrayList<Player> players;
 
 	/**
 	 * Launch the application.
@@ -56,6 +66,7 @@ public class AdventureGUI extends JFrame {
 	 * Create the frame.
 	 */
 	public AdventureGUI() {
+		setTitle("Adventure Manager");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 814, 414);
 		contentPane = new JPanel();
@@ -64,6 +75,9 @@ public class AdventureGUI extends JFrame {
 		contentPane.setLayout(new GridLayout(0, 4, 0, 0));
 		
 		try {
+			players = DB.getPlayers(0);
+			contentPane.add(playersPanel,0);
+			playersPanel.setLayout(new BorderLayout(0, 0));
 			playersPanel();
 			charactersPanel();			
 			campaignPanel();
@@ -73,6 +87,8 @@ public class AdventureGUI extends JFrame {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		 refreshPlayersPanel(false);
+		
 		
 		
 		/* Campaign Panel */
@@ -93,51 +109,58 @@ public class AdventureGUI extends JFrame {
 		playerActionPanel.setLayout(new BoxLayout(playerActionPanel, BoxLayout.Y_AXIS));
 		
 		JLabel lblFirstName = new JLabel("First Name");
-		playerActionPanel.add(lblFirstName);
+		JLabel lblLastName = new JLabel("Last Name");	
+		JLabel lblContact = new JLabel("Contact");
 		
 		txtFirstName = new JTextField();
-		txtFirstName.setBounds(new Rectangle(0, 0, 150, 50));
-		playerActionPanel.add(txtFirstName);
-		txtFirstName.setColumns(80);
-		
-		JLabel label = new JLabel("");
-		label.setLabelFor(txtFirstName);
-		playerActionPanel.add(label);
-		
-		JLabel label_1 = new JLabel("");
-		playerActionPanel.add(label_1);
-		
-		JLabel lblLastName = new JLabel("Last Name");
-		playerActionPanel.add(lblLastName);
-		
 		txtLastName = new JTextField();
-		txtLastName.setColumns(10);
+		txtContact = new JTextField();
+
+		JButton btnCommit = new JButton("Commit to DB");
+		btnCommit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					DB.commitPlayerToDB(
+							new Player(
+									selectedPlayer,
+									txtFirstName.getText(),
+									txtLastName.getText(),
+									txtContact.getText()
+									));
+					//playersPanel.removeAll();
+					refreshPlayersPanel(true);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		
+			
+		btnDeletePlayer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					DB.deletePlayer(selectedPlayer);
+					//playersPanel.removeAll();
+					refreshPlayersPanel(true);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		
+		playerActionPanel.add(lblFirstName);
+		playerActionPanel.add(txtFirstName);
+				
+		playerActionPanel.add(lblLastName);
 		playerActionPanel.add(txtLastName);
 		
-		JLabel label_2 = new JLabel("");
-		playerActionPanel.add(label_2);
-		
-		JLabel lblContact = new JLabel("Contact");
 		playerActionPanel.add(lblContact);
+		playerActionPanel.add(txtContact);
 		
-		JLabel label_3 = new JLabel("");
-		playerActionPanel.add(label_3);
-		
-		textField = new JTextField();
-		textField.setColumns(10);
-		playerActionPanel.add(textField);
-		
-		JButton btnCommit = new JButton("Commit to DB");
-		playerActionPanel.add(btnCommit);
-		
-		JButton btnDeletePlayer = new JButton("Delete Player");
+		playerActionPanel.add(btnCommit);		
 		playerActionPanel.add(btnDeletePlayer);
-		
-		JLabel label_4 = new JLabel("");
-		playerActionPanel.add(label_4);
-		
-		JLabel label_5 = new JLabel("");
-		playerActionPanel.add(label_5);
 	}
 
 	private void charactersPanel() {
@@ -216,50 +239,51 @@ public class AdventureGUI extends JFrame {
 		contentPane.add(campaignPanel);
 	}
 
-	private void playersPanel() throws SQLException {
+	private void refreshPlayersPanel(Boolean removeOld) {
+		if(removeOld) {
 
-		ArrayList<Player> players = DB.getPlayers(0);
-		
-		JPanel playersPanel = new JPanel();
-		contentPane.add(playersPanel);
-		playersPanel.setLayout(new BorderLayout(0, 0));
-		
-		JLabel lblPlayers = new JLabel("Players");
-		playersPanel.add(lblPlayers, BorderLayout.NORTH);
-		
-		JPanel playersList = new JPanel();
-		playersPanel.setAutoscrolls(true);
-		
-        JScrollPane scrollPane = new JScrollPane(playersList);
-		playersList.setLayout(new BoxLayout(playersList, BoxLayout.Y_AXIS)); 
-        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        scrollPane.setBounds(50, 30, 300, 50);
-		playersPanel.add(scrollPane, BorderLayout.CENTER);
-		
-		// Fill in all the campaigns
+		for(JButton pbtn: playerButtons) {
+			playersList.remove(pbtn);
+			pbtn = null;
+			//pbtn.revalidate();
+		}
+		}
+
+		try {
+			players = DB.getPlayers(0);
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		int i = 0;
+		playerButtons = new JButton[players.size()];
 				for(Player p : players) {
-					JButton newButton = new JButton(p.getFirstName()+" "+p.getLastName());
-					newButton.setBorder(new EmptyBorder(5,5,5,5)); // Add padding to space out labels
+					playerButtons[i] = new JButton(p.getFirstName()+" "+p.getLastName());
+					playerButtons[i].setBorder(new EmptyBorder(5,5,5,5)); // Add padding to space out labels
 					
 					// Add listener for clicks
-					newButton.addActionListener(event -> {
-						System.out.println("Clicked: " + newButton.getText());
+					final int j =i;
+					playerButtons[i].addActionListener(event -> {
+						System.out.println("Clicked: " + playerButtons[j].getText());
 						selectedPlayer = p.getId();
+						txtFirstName.setText(p.getFirstName());
+						txtLastName.setText(p.getLastName());
+						txtContact.setText(p.getContact());
+						btnDeletePlayer.setVisible(true);
 					});
 					
 					// Add hover effects
-					newButton.setOpaque(true);
-					newButton.addMouseListener(new MouseListener() {
+					playerButtons[i].setOpaque(true);
+					playerButtons[i].addMouseListener(new MouseListener() {
 						@Override
 						public void mouseEntered(MouseEvent e) {
-							newButton.setBackground(Color.LIGHT_GRAY);
+							playerButtons[j].setBackground(Color.LIGHT_GRAY);
 							
 						}
 
 						@Override
 						public void mouseExited(MouseEvent e) {
-							newButton.setBackground(UIManager.getColor("control"));
+							playerButtons[j].setBackground(UIManager.getColor("control"));
 							
 						}
 
@@ -275,13 +299,44 @@ public class AdventureGUI extends JFrame {
 						
 					});
 					
-					playersList.add(newButton);
+					playersList.add(playerButtons[i]);
+					i++;
 				}
+				revalidate(); 
+				repaint();/*
+				playersList.revalidate();
+				playersList.repaint();
+				scrollPane.revalidate();
+				scrollPane.repaint();
+				playersPanel.revalidate();
+				playersPanel.repaint();
+				*/
+	}
+	
+	private void playersPanel(){
+
+		
+		JLabel lblPlayers = new JLabel("Players");
+		playersPanel.add(lblPlayers, BorderLayout.NORTH);
+		
+		playersList.setLayout(new BoxLayout(playersList, BoxLayout.Y_AXIS)); 
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setBounds(50, 30, 300, 50);
+		playersPanel.add(scrollPane, BorderLayout.CENTER);
+		
+		// Fill in all the campaigns
+		
 				
 				JButton btnNewPlayer = new JButton("New Player");
 				btnNewPlayer.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						
+
+						txtFirstName.setText("");
+						txtLastName.setText("");
+						txtContact.setText("");
+						selectedPlayer = 0;
+						btnDeletePlayer.setVisible(false);
 					}
 					
 				});
