@@ -61,8 +61,16 @@ public class Campaign {
 		return id;
 	}
 
-	public Campaign() {
-		// TODO Auto-generated constructor stub
+	public Campaign(int id, String name, String setting, String description, int levelLow, int levelHigh,
+			int availableExp) {
+		super();
+		this.id = id;
+		Name = name;
+		Setting = setting;
+		Description = description;
+		this.levelLow = levelLow;
+		this.levelHigh = levelHigh;
+		this.availableExp = availableExp;
 	}
 
 	public static void main(String[] args) {

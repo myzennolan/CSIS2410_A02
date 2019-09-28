@@ -53,12 +53,14 @@ public class console {
     executeStatement(sqlCreate.deleteAll("pcharacter"));
     executeStatement(sqlCreate.deleteAll("weapon"));
     executeStatement(sqlCreate.deleteAll("experience"));
+    executeStatement(sqlCreate.deleteAll("campaign"));
 
     // Fill
     executeStatement(sqlFill.player());
     executeStatement(sqlFill.character());
     executeStatement(sqlFill.weapon());
     executeStatement(sqlFill.experience());
+    executeStatement(sqlFill.campaign());
     }
     // Query
     executeQueries(

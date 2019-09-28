@@ -9,6 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import database.sqlCampaign;
 import database.sqlCharacter;
 import database.sqlPlayer;
 
@@ -38,8 +39,17 @@ public class DB {
 		return characters;
 	}
 	
-	public Campaign[] getCampaigns() {
-		return null;
+	public static  ArrayList<Campaign> getCampaigns(int id) {
+		ArrayList<Campaign> campaigns = new ArrayList<>();
+		String sql = (id == 0 ? sqlCampaign.selectAllCampaigns():sqlCampaign.selectCampaignByID(id));
+		
+		campaigns = executeCampaignQueries(sql);
+		
+		
+		
+		//characters = executeQueries(sql);
+		//ResultSetMetaData metaData = results.getMetaData();
+		return campaigns;
 	}
 	
 	private static ArrayList<Player> executePlayerQueries(String query) {
@@ -106,6 +116,38 @@ public class DB {
 	    }
 		return null;
 	  }
+	
+	private static ArrayList<Campaign> executeCampaignQueries(String query){
+		ArrayList<Campaign> campaign = new ArrayList<>();
+	    try (Connection connection = DriverManager.getConnection("jdbc:derby:adventure;");
+	        Statement statement = connection.createStatement();) {
+	    	
+	     // for (String query : queries) {
+	        ResultSet results = statement.executeQuery(query);
+	      
+	        ResultSetMetaData metaData = results.getMetaData();
+	        while (results.next()) {
+
+	        	campaign.add(new Campaign(
+	          					 (int) results.getObject(1),
+	          					 (String) results.getObject(2),
+	          					 (String) results.getObject(3),
+	          					 (String) results.getObject(4),
+	          					 (int) results.getObject(5),
+	          					 (int) results.getObject(6),
+	          					 (int) results.getObject(7)
+	          					 ));
+	          }
+
+	        System.out.println("Got "+campaign.size()+" Campaigns");
+	        
+	        return campaign;
+	   //   }
+	    } catch (SQLException e) {
+	      e.printStackTrace();
+	    }
+		return null;
+	  }
 
 	  private static void executeStatement(String... statements) {
 	    try (Connection connection = DriverManager.getConnection("jdbc:derby:adventure;create=true");
@@ -129,10 +171,10 @@ public class DB {
 		
 		try {
 			
-			for(AdvCharacter p:getCharacters(0)) {
+			for(Campaign p:getCampaigns(0)) {
 				System.out.println(p.getName());
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

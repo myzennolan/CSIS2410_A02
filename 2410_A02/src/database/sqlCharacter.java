@@ -17,6 +17,12 @@ public class sqlCharacter {
 		return "select * from pcharacter where id = "+id;
 		
 	}
+	
+	public static String selectCharacterByPlayerID(int id) {
+		
+		return "select * from pcharacter where playerid = "+id;
+		
+	}
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

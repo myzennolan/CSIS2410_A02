@@ -88,4 +88,16 @@ public class sqlFill {
         + "(9, 8000, 8999),"
         + "(10, 9000, 9999)";
     }
+
+    /**
+     * Default experience table records
+     * 
+     * @return insert string
+     */
+    public static String campaign() {
+        return ""
+        + "INSERT INTO campaign (Name, Setting, Description,LevelLow,LevelHigh,AvailableExp) "
+        + "VALUES "
+        + "('Bagel Heist', 'New York', 'Why are hobbit attacking a bagelry?',1,4,500)";
+    }
 }
