@@ -24,10 +24,7 @@ public class AdventureGUI extends JFrame {
 	private int selectedCharacter = 0;
 	private int selectedCampaign = 0;
 	
-	private JPanel campaignList = new JPanel();
 	private JPanel contentPane;
-	private ArrayList<AdvCharacter> advCharacters = new ArrayList<>();
-	private ArrayList<Campaign> campaigns = new ArrayList<>();
 
 	/**
 	 * Launch the application.
@@ -91,6 +88,9 @@ public class AdventureGUI extends JFrame {
 	}
 
 	private void campaignPanel() {
+
+		ArrayList<Campaign> campaigns = new ArrayList<>();
+		
 		String[] testData = {"Campaign One", "Campaign Two", "Campaign Three", "Campaign Four", "Campaign Five"};
 		
 		// Make campaign panel
