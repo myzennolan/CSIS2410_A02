@@ -13,6 +13,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.UIManager;
@@ -96,6 +97,9 @@ public class AdventureGUI extends JFrame {
 		/* Info panel */
 	}
 
+	/**
+	 * WHere records are displayed and acted on
+	 */
 	private void infoPanel() {
 		JPanel infoPanel = new JPanel();
 		contentPane.add(infoPanel);
@@ -163,15 +167,40 @@ public class AdventureGUI extends JFrame {
 		playerActionPanel.add(btnDeletePlayer);
 	}
 
+	/**
+	 * List of AdvCharacters as buttons
+	 */
 	private void charactersPanel() {
 		JPanel charactersPanel = new JPanel();
 		contentPane.add(charactersPanel);
 		charactersPanel.setLayout(new BorderLayout(0, 0));
+		CharacterPanel characterList = new CharacterPanel();
+		charactersPanel.add(characterList);
+		AdvCharacter[] testCharacters = {
+				new AdvCharacter(1, 1, "Dom", "Mage",12,15,13,14,15,12,905),
+				new AdvCharacter(2, 1, "Nick", "Knight",12,15,13,14,15,12,905),
+				new AdvCharacter(3, 2, "Nolan", "Cleric",12,15,13,14,15,12,905),
+				new AdvCharacter(4, 3, "Trevor", "Archer",12,15,13,14,15,12,905)
+		};
+		
+		for (AdvCharacter c : testCharacters)
+		{
+			JButton newButton = new JButton(c.getName());
+			newButton.setBorder(new EmptyBorder(5, 5, 5, 5));
+			characterList.add(newButton);
+			
+			newButton.addActionListener(event -> {
+				JOptionPane.showMessageDialog(null, c.toString(), "Character: " + c.getName(), JOptionPane.INFORMATION_MESSAGE);
+			});
+		}
 		
 		JLabel lblCharacters = new JLabel("Characters");
 		charactersPanel.add(lblCharacters, BorderLayout.NORTH);
 	}
 
+	/**
+	 * List of Campaigns as buttons
+	 */
 	private void campaignPanel() {
 
 		ArrayList<Campaign> campaigns = DB.getCampaigns(0);
@@ -239,6 +268,12 @@ public class AdventureGUI extends JFrame {
 		contentPane.add(campaignPanel);
 	}
 
+	/**
+	 * panel refresh method
+	 * removes old records before repopulating 
+	 * 
+	 * @param removeOld
+	 */
 	private void refreshPlayersPanel(Boolean removeOld) {
 		if(removeOld) {
 
@@ -313,6 +348,9 @@ public class AdventureGUI extends JFrame {
 				*/
 	}
 	
+	/**
+	 * List of Players as buttons.
+	 */
 	private void playersPanel(){
 
 		
