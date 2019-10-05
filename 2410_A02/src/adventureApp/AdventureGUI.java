@@ -25,9 +25,11 @@ import java.awt.Insets;
 import java.awt.Rectangle;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
 /**
- * This is the AdventureGUI class of the Adventure Database Application.
+ * AdventureGUI class is the outer most container of the Adventure Database Application.
  * It represents the main GUI of the application.
+ * 
  * @author Nolan Harris, Trevor Hodson, and Dominick Wiley
  *
  */
@@ -51,6 +53,8 @@ public class AdventureGUI extends JFrame {
 	
 
 	private ArrayList<Player> players;
+	private ArrayList<AdvCharacter> advCharacters;
+	private ArrayList<Campaign> campaigns;
 
 	/**
 	 * Launch the application.
@@ -81,7 +85,11 @@ public class AdventureGUI extends JFrame {
 		contentPane.setLayout(new GridLayout(0, 4, 0, 0));
 		
 		try {
+			//Load Full tables
 			players = DB.getPlayers(0);
+			advCharacters = DB.getCharacters(0);
+			campaigns = DB.getCampaigns(0);
+			
 			contentPane.add(playersPanel,0);
 			playersPanel.setLayout(new BorderLayout(0, 0));
 			playersPanel();
