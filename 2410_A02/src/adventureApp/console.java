@@ -16,7 +16,7 @@ public class console {
   public static void main(String[] args) {
     System.out.println(""
     		+ "The primary function of this database application is to serve as a role \r\n" + 
-    		"playing game's catalog of players, their charcters, the character's experience\r\n" + 
+    		"playing game's catalog of players, their characters, the character's experience\r\n" + 
     		"and equipment, and what capaigns they are currently involved in.\r\n" + 
     		"The application will allow for the creation of new players, new characters \r\n" + 
     		"for those players, new equipments, new campaigns, and allow the customization \r\n" + 
