@@ -1,5 +1,10 @@
 package adventureApp;
-
+/**
+ * This is the Player class of the Adventure Database Application.
+ * It represents the players of the application.
+ * @author Nolan Harris
+ *
+ */
 public class Player {
 	private int id;// int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), \r\n" + 
 	private String FirstName;// varchar(255), \r\n" + 

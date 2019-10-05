@@ -25,7 +25,12 @@ import java.awt.Insets;
 import java.awt.Rectangle;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-
+/**
+ * This is the AdventureGUI class of the Adventure Database Application.
+ * It represents the main GUI of the application.
+ * @author Nolan Harris, Trevor Hodson, and Dominick Wiley
+ *
+ */
 public class AdventureGUI extends JFrame {
 //test
 	private int selectedCharacter = 0;
@@ -98,7 +103,7 @@ public class AdventureGUI extends JFrame {
 	}
 
 	/**
-	 * WHere records are displayed and acted on
+	 * The panel where records are displayed and acted on
 	 */
 	private void infoPanel() {
 		JPanel infoPanel = new JPanel();

@@ -1,5 +1,6 @@
 package adventureApp;
 
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -9,7 +10,13 @@ import java.sql.Statement;
 import database.sqlCreate;
 import database.sqlFill;
 import database.sqlSelect;
-
+/**
+ * This is the console class of the Adventure Database Application. 
+ * In order for the application to run properly, this class 
+ * must be executed first.
+ * @author Nolan Harris, Trevor Hodson, and Dominick Wiley
+ *
+ */
 public class console {
 
   @SuppressWarnings("unused")

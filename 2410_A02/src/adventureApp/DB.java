@@ -12,7 +12,12 @@ import java.util.List;
 import database.sqlCampaign;
 import database.sqlCharacter;
 import database.sqlPlayer;
-
+/**
+ * This is the local Database of the Adventure Database Application.
+ * It holds the players, characters, campaigns, and weapons of the application.
+ * @author Nolan Harris, Trevor Hodson, and Dominick Wiley
+ *
+ */
 public class DB {
 
 	/**

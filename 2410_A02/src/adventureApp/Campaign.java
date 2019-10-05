@@ -1,5 +1,11 @@
 package adventureApp;
-
+/**
+ * This is the Campaign class of the Adventure Database Application. 
+ * These represent the campaigns that each player will play through 
+ * within the application.
+ * @author Trevor Hodson
+ *
+ */
 public class Campaign {
 	private int id;
 	private String Name;
@@ -9,6 +15,7 @@ public class Campaign {
 	private int levelHigh; 
 	private int availableExp;
 	
+	// getters and setters
 	public String getName() {
 		return Name;
 	}
@@ -60,6 +67,7 @@ public class Campaign {
 	public int getId() {
 		return id;
 	}
+	//end of getters and setters
 
 	public Campaign(int id, String name, String setting, String description, int levelLow, int levelHigh,
 			int availableExp) {
@@ -73,6 +81,7 @@ public class Campaign {
 		this.availableExp = availableExp;
 	}
 
+	// unused method
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
