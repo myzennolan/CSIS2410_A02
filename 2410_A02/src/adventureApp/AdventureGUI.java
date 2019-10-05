@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -356,12 +357,12 @@ public class AdventureGUI extends JFrame {
 		}
 		}
 
-		try {
-			players = DB.getPlayers(0);
-		} catch (SQLException e1) {
+		//try {
+			//players = DB.getPlayers(0);
+		//} catch (SQLException e1) {
 			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+			//e1.printStackTrace();
+		//}
 		int i = 0;
 		playerButtons = new JButton[players.size()];
 				for(Player p : players) {
@@ -425,15 +426,30 @@ public class AdventureGUI extends JFrame {
 	 */
 	private void playersPanel(){
 
+		JComboBox<String> letterSelector = new JComboBox();
+		letterSelector.addItem("Players");
+		for(Character i = 'A'; i <= 'Z'; i++) {
+			letterSelector.addItem(i.toString());
+		}
 		
-		JLabel lblPlayers = new JLabel("Players");
-		playersPanel.add(lblPlayers, BorderLayout.NORTH);
+		letterSelector.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				players = DB.filterPlayers(letterSelector.getSelectedItem().toString());
+				//playersPanel.removeAll();
+				System.out.println("Clicked: " + letterSelector.getSelectedItem().toString());
+				refreshPlayersPanel(true);
+			}
+		});
+		
+		//JLabel lblPlayers = new JLabel("Players");
+		//playersPanel.add(lblPlayers, BorderLayout.NORTH);
 		
 		playersList.setLayout(new BoxLayout(playersList, BoxLayout.Y_AXIS)); 
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setBounds(50, 30, 300, 50);
 		playersPanel.add(scrollPane, BorderLayout.CENTER);
+		playersPanel.add(letterSelector, BorderLayout.NORTH);
 		
 		// Fill in all the campaigns
 		

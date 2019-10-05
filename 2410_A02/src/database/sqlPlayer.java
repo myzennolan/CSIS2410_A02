@@ -85,4 +85,9 @@ public class sqlPlayer {
 
 	}
 
+	public static String selectPlayerLikeLetter(String selectedItem) {
+		// TODO Auto-generated method stub
+		return "select * from player where FirstName like '"+selectedItem+"%' or LastName like '"+selectedItem+"%'";
+	}
+
 }

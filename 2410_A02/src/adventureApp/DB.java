@@ -260,4 +260,13 @@ public class DB {
 		}
 	}
 
+	public static ArrayList<Player> filterPlayers(String selectedItem) {
+		ArrayList<Player> players;
+		String sql = (selectedItem == "Players" ? sqlPlayer.selectAllPlayers():sqlPlayer.selectPlayerLikeLetter(selectedItem));
+		
+		players = executePlayerQueries(sql);
+		//ResultSetMetaData metaData = results.getMetaData();
+		return players;
+	}
+
 }
