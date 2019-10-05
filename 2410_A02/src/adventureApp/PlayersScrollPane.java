@@ -3,7 +3,12 @@ package adventureApp;
 import java.awt.Component;
 
 import javax.swing.JScrollPane;
-
+/**
+ * This is the PlayerScrollPane class of the Adventure Database Application.
+ * It displays the players within the database.
+ * @author Nolan Harris
+ *
+ */
 public class PlayersScrollPane extends JScrollPane {
 
 	public PlayersScrollPane() {

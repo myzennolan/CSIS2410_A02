@@ -1,5 +1,10 @@
 package adventureApp;
-
+/**
+ * This is the AdvCharacter class for the Adventure Database App. These are
+ * the characters that each player uses within the application.
+ * @author Nolan Harris
+ *
+ */
 public class AdvCharacter {
 	private int id;
 	private int playerID;
@@ -13,6 +18,7 @@ public class AdvCharacter {
 	private int Charisma;
 	private int Intelligence;
 	
+	// getters and setters
 	public String getName() {
 		return Name;
 	}
@@ -92,7 +98,18 @@ public class AdvCharacter {
 	public int getPlayerID() {
 		return playerID;
 	}
+	// end of getters and setters
 
+	@Override
+	public String toString()
+	{
+		return "Name: " + Name + "\nClass: " +CharClass + "\nExperience: " + Experience
+				+ "\n\nStr: " + Strength + "\nDex: " + Dexterity + "\nCon: "
+				+ Constitution + "\nWis: " + Wisdom + "\nCha: " + Charisma + "\nInt: "
+				+ Intelligence;
+	}
+	
+	// default constructor
 	public AdvCharacter(int id, int playerID, String name, String charClass, int experience, int strength,
 			int dexterity, int constitution, int wisdom, int charisma, int intelligence) {
 		super();
@@ -108,7 +125,8 @@ public class AdvCharacter {
 		Charisma = charisma;
 		Intelligence = intelligence;
 	}
-
+	
+	// unused method
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
