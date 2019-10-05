@@ -19,10 +19,6 @@ import javax.swing.JScrollPane;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import java.awt.Rectangle;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -35,8 +31,6 @@ import java.awt.event.ActionEvent;
  */
 public class AdventureGUI extends JFrame {
 //test
-	private int selectedCharacter = 0;
-	private int selectedCampaign = 0;
 	
 	private JPanel contentPane;
 	
@@ -51,7 +45,31 @@ public class AdventureGUI extends JFrame {
 	private JPanel playersList = new JPanel();	
     private JScrollPane scrollPane = new JScrollPane(playersList);
 	
+//campaigns
+	private int selectedCampaign = 0;
+	private JButton btnDeleteCampaign = new JButton("Delete Campaign");	
+	private JTextField txtCamapignName = new JTextField();
+	private JTextField txtCampaignDescription = new JTextField();
+	private JTextField txtCampaignExperience = new JTextField();
+	private JTextField txtCampaignLevel = new JTextField();
 
+//characters
+	private int selectedCharacter = 0;
+	private JButton btnDeleteCharacter = new JButton("Delete Character");	
+	private JTextField txtCharacterName = new JTextField();
+	private JTextField txtCharacterClass = new JTextField();
+	private JTextField txtCharacterExperience = new JTextField();
+	private JTextField txtCharacterStrength = new JTextField();
+	private JTextField txtCharacterDexterity = new JTextField();
+	private JTextField txtCharacterConstitution = new JTextField();
+	private JTextField txtCharacterWisdom = new JTextField();
+	private JTextField txtCharacterIntelligence = new JTextField();
+	private JTextField txtCharacterCharisma = new JTextField();
+	
+	
+//info
+	private JPanel infoPanel = new JPanel();
+	
 	private ArrayList<Player> players;
 	private ArrayList<AdvCharacter> advCharacters;
 	private ArrayList<Campaign> campaigns;
@@ -96,6 +114,8 @@ public class AdventureGUI extends JFrame {
 			charactersPanel();			
 			campaignPanel();
 			infoPanel();	
+			infoPanel.setVisible(false);
+			
 			
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
@@ -114,7 +134,6 @@ public class AdventureGUI extends JFrame {
 	 * The panel where records are displayed and acted on
 	 */
 	private void infoPanel() {
-		JPanel infoPanel = new JPanel();
 		contentPane.add(infoPanel);
 		infoPanel.setLayout(new BorderLayout(0, 0));
 		
@@ -188,7 +207,7 @@ public class AdventureGUI extends JFrame {
 		contentPane.add(charactersPanel);
 		charactersPanel.setLayout(new BorderLayout(0, 0));
 		CharacterPanel characterList = new CharacterPanel();
-		charactersPanel.add(characterList);
+		charactersPanel.add(characterList, BorderLayout.CENTER);
 		AdvCharacter[] testCharacters = {
 				new AdvCharacter(1, 1, "Dom", "Mage",12,15,13,14,15,12,905),
 				new AdvCharacter(2, 1, "Nick", "Knight",12,15,13,14,15,12,905),
@@ -209,6 +228,30 @@ public class AdventureGUI extends JFrame {
 		
 		JLabel lblCharacters = new JLabel("Characters");
 		charactersPanel.add(lblCharacters, BorderLayout.NORTH);
+		
+
+		
+		JButton btnNewCharacter = new JButton("New Character");
+		btnNewCharacter.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+
+				txtCharacterName.setText("");
+				txtCharacterClass.setText("");
+				txtCharacterExperience.setText("");
+				txtCharacterStrength.setText("");
+				txtCharacterDexterity.setText("");
+				txtCharacterConstitution.setText("");
+				txtCharacterWisdom.setText("");
+				txtCharacterIntelligence.setText("");
+				txtCharacterCharisma.setText("");
+				selectedCharacter = 0;
+				btnDeleteCharacter.setVisible(false);
+			}
+			
+		});
+		
+		charactersPanel.add(btnNewCharacter, BorderLayout.SOUTH);
 	}
 
 	/**
@@ -275,7 +318,23 @@ public class AdventureGUI extends JFrame {
 		
 		// Make a scroll pane and wrap the campaignList
 		JScrollPane campaignScrollPane = new JScrollPane(campaignList);
-		campaignPanel.add(campaignScrollPane);
+		campaignPanel.add(campaignScrollPane, BorderLayout.CENTER);
+		
+		JButton btnNewCampaign = new JButton("New Campaign");
+		btnNewCampaign.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				txtCamapignName.setText("");
+				txtCampaignDescription.setText("");
+				txtCampaignExperience.setText("");
+				txtCampaignLevel.setText("");
+				selectedCampaign = 0;
+				btnDeleteCampaign.setVisible(false);
+			}
+			
+		});
+		
+		campaignPanel.add(btnNewCampaign, BorderLayout.SOUTH);
 		
 		// Done building panel, add it to the window
 		contentPane.add(campaignPanel);
