@@ -136,13 +136,17 @@ public class AdventureGUI extends JFrame {
 	private void infoPanel() {
 		contentPane.add(infoPanel);
 		infoPanel.setLayout(new BorderLayout(0, 0));
+		infoPanelPlayer.setLayout(new BorderLayout(0, 0));
+		infoPanelCharacter.setLayout(new BorderLayout(0, 0));
+		infoPanelCampaign.setLayout(new BorderLayout(0, 0));
 		
+		
+		// ---- Player Info Panel ----
 		JLabel lblInfo = new JLabel("Info");
 		infoPanel.add(lblInfo, BorderLayout.NORTH);
-		
-		JPanel playerActionPanel = new JPanel();
-		infoPanel.add(playerActionPanel, BorderLayout.CENTER);
-		playerActionPanel.setLayout(new BoxLayout(playerActionPanel, BoxLayout.Y_AXIS));
+
+		infoPanel.add(infoPanelPlayer, BorderLayout.CENTER);
+		infoPanelPlayer.setLayout(new BoxLayout(infoPanelPlayer, BoxLayout.Y_AXIS));
 		
 		JLabel lblFirstName = new JLabel("First Name");
 		JLabel lblLastName = new JLabel("Last Name");	
@@ -188,17 +192,113 @@ public class AdventureGUI extends JFrame {
 			}
 		});
 		
-		playerActionPanel.add(lblFirstName);
-		playerActionPanel.add(txtFirstName);
+		infoPanelPlayer.add(lblFirstName);
+		infoPanelPlayer.add(txtFirstName);
 				
-		playerActionPanel.add(lblLastName);
-		playerActionPanel.add(txtLastName);
+		infoPanelPlayer.add(lblLastName);
+		infoPanelPlayer.add(txtLastName);
 		
-		playerActionPanel.add(lblContact);
-		playerActionPanel.add(txtContact);
+		infoPanelPlayer.add(lblContact);
+		infoPanelPlayer.add(txtContact);
 		
-		playerActionPanel.add(btnCommit);		
-		playerActionPanel.add(btnDeletePlayer);
+		infoPanelPlayer.add(btnCommit);		
+		infoPanelPlayer.add(btnDeletePlayer);
+		
+		
+		// ---- Character Info Panel ----
+		infoPanelCharacter.setLayout(new BoxLayout(infoPanelCharacter, BoxLayout.Y_AXIS));
+
+		JLabel lblCharacterName = new JLabel("Charcter Name");
+		JLabel lblCharacterClass = new JLabel("Class");
+		JLabel lblCharacterExperience = new JLabel("Experience Points");
+		JLabel lblCharacterStrength = new JLabel("Strength");
+		JLabel lblCharacterDexterity = new JLabel("Dexterity");
+		JLabel lblCharacterConstitution = new JLabel("Constitution");
+		JLabel lblCharacterWisdom = new JLabel("Wisdom");
+		JLabel lblCharacterIntelligence = new JLabel("Intelligence");
+		JLabel lblCharacterCharisma = new JLabel("Charisma");
+		
+		txtFirstName = new JTextField();
+		txtLastName = new JTextField();
+		txtContact = new JTextField();
+
+		JButton btnCharcterCommit = new JButton("Commit to DB");
+		btnCommit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					DB.commitPlayerToDB(
+							new Player(
+									selectedPlayer,
+									txtFirstName.getText(),
+									txtLastName.getText(),
+									txtContact.getText()
+									));
+					//playersPanel.removeAll();
+					//players = DB.filterPlayers(filteredPlayers);
+					refreshPlayersPanel(true);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		
+			
+		btnDeleteCharacter.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					DB.deletePlayer(selectedPlayer);
+					//playersPanel.removeAll();
+					//players = DB.filterPlayers(filteredPlayers);
+					refreshPlayersPanel(true);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+/*
+		txtCharacterName.setText("");
+		txtCharacterClass.setText("");
+		txtCharacterExperience.setText("");
+		txtCharacterStrength.setText("");
+		txtCharacterDexterity.setText("");
+		txtCharacterConstitution.setText("");
+		txtCharacterWisdom.setText("");
+		txtCharacterIntelligence.setText("");
+		txtCharacterCharisma.setText("");
+	*/	
+		infoPanelCharacter.add(lblCharacterName);
+		infoPanelCharacter.add(txtCharacterName);
+				
+		infoPanelCharacter.add(lblCharacterClass);
+		infoPanelCharacter.add(txtCharacterClass);
+		
+		infoPanelCharacter.add(lblCharacterExperience);
+		infoPanelCharacter.add(txtCharacterExperience);
+
+		infoPanelCharacter.add(lblCharacterStrength);
+		infoPanelCharacter.add(txtCharacterStrength);
+		
+		infoPanelCharacter.add(lblCharacterDexterity);
+		infoPanelCharacter.add(txtCharacterDexterity);
+		
+		infoPanelCharacter.add(lblCharacterConstitution);
+		infoPanelCharacter.add(txtCharacterConstitution);
+		
+		infoPanelCharacter.add(lblCharacterWisdom);
+		infoPanelCharacter.add(txtCharacterWisdom);
+		
+		infoPanelCharacter.add(lblCharacterIntelligence);
+		infoPanelCharacter.add(txtCharacterIntelligence);
+		
+		infoPanelCharacter.add(lblCharacterCharisma);
+		infoPanelCharacter.add(txtCharacterCharisma);
+		
+		infoPanelCharacter.add(btnCharcterCommit);		
+		infoPanelCharacter.add(btnDeleteCharacter);
+		
+		
 	}
 
 	/**
@@ -239,6 +339,10 @@ public class AdventureGUI extends JFrame {
 		btnNewCharacter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				resetCharacterInfoPanel();
+				infoPanel.removeAll();
+				infoPanel.add(infoPanelCharacter);
+				revalidate();
+				repaint();
 			}
 			
 		});
@@ -445,11 +549,11 @@ public class AdventureGUI extends JFrame {
 				btnNewPlayer.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 
-						txtFirstName.setText("");
-						txtLastName.setText("");
-						txtContact.setText("");
-						selectedPlayer = 0;
-						btnDeletePlayer.setVisible(false);
+						resetPlayerInfoPanel();
+						infoPanel.removeAll();
+						infoPanel.add(infoPanelPlayer);
+						revalidate();
+						repaint();
 					}
 					
 				});
@@ -480,6 +584,17 @@ public class AdventureGUI extends JFrame {
 		txtCampaignLevel.setText("");
 		selectedCampaign = 0;
 		btnDeleteCampaign.setVisible(false);
+	}
+
+	/**
+	 * 
+	 */
+	private void resetPlayerInfoPanel() {
+		txtFirstName.setText("");
+		txtLastName.setText("");
+		txtContact.setText("");
+		selectedPlayer = 0;
+		btnDeletePlayer.setVisible(false);
 	}
 
 }
