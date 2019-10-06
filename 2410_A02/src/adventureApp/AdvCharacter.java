@@ -103,15 +103,20 @@ public class AdvCharacter {
 	@Override
 	public String toString()
 	{
-		return "Name: " + Name + "\nClass: " +CharClass + "\nExperience: " + Experience
-				+ "\n\nStr: " + Strength + "\nDex: " + Dexterity + "\nCon: "
-				+ Constitution + "\nWis: " + Wisdom + "\nCha: " + Charisma + "\nInt: "
-				+ Intelligence;
+		return "Name: " + Name 
+				+ "\nClass: " +CharClass 
+				+ "\nExperience: " + Experience
+				+ "\n\nStrength: " + Strength 
+				+ "\nDexterity: " + Dexterity 
+				+ "\nConstitution: "	+ Constitution 
+				+ "\nWisdom: " + Wisdom 
+				+ "\nCharisma: " + Charisma 
+				+ "\nIntelligence: "	+ Intelligence;
 	}
 	
 	// default constructor
-	public AdvCharacter(int id, int playerID, String name, String charClass, int experience, int strength,
-			int dexterity, int constitution, int wisdom, int charisma, int intelligence) {
+	public AdvCharacter(int id, int playerID, String name, String charClass, int strength,
+			int dexterity, int constitution, int wisdom, int charisma, int intelligence, int experience) {
 		super();
 		this.id = id;
 		this.playerID = playerID;
