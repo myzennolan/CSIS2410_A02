@@ -35,6 +35,22 @@ public class DB {
 		return players;
 		
 	}
+	/**
+	 * runs executePlayerQueries and returns ArrayList<Players>
+	 * 
+	 * @param id
+	 * @return players ArrayList<Players>
+	 * @throws SQLException
+	 */
+	public static ArrayList<Player> getPlayersByCampaign(int id) throws SQLException {
+		ArrayList<Player> players;
+		String sql = (id == 0 ? sqlPlayer.selectAllPlayers():sqlPlayer.selectPlayerByCampaignID(id));
+		System.out.println(sql);
+		players = executePlayerQueries(sql);
+		//ResultSetMetaData metaData = results.getMetaData();
+		return players;
+		
+	}
 
 	/**
 	 * Runs executeStatement deletePlayerByID sql parameter.

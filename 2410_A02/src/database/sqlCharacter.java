@@ -11,14 +11,14 @@ public class sqlCharacter {
 	 */
 	public static String selectAllCharacters() {
 		
-		return "select t1.*,t2.level from pcharacter as t1 "
+		return "select t1.*,CASE WHEN t2.level is null then 0 else t2.level end as level from pcharacter as t1 "
 				+ "left join experience as t2 on t1.experience between t2.minExp and t2.maxExp";
 		
 	}
 	
 	public static String selectCharacterByID(int id) {
 		
-		return "select t1.*,t2.level from pcharacter as t1 "
+		return "select t1.*,CASE WHEN t2.level is null then 0 else t2.level end as level from pcharacter as t1 "
 				+ "left join experience as t2 on t1.experience between t2.minExp and t2.maxExp"
 				+ " where id = "+id;
 		
@@ -26,7 +26,7 @@ public class sqlCharacter {
 	
 	public static String selectCharacterByPlayerID(int id) {
 		
-		return "select t1.*,t2.level from pcharacter as t1 "
+		return "select t1.*,CASE WHEN t2.level is null then 0 else t2.level end as level from pcharacter as t1 "
 				+ "left join experience as t2 on t1.experience between t2.minExp and t2.maxExp "
 				+ "where playerid = "+id;
 		

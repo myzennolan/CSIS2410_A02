@@ -321,13 +321,13 @@ public class AdventureGUI extends JFrame {
 									txtCampaignName.getText(),
 									txtCampaignSetting.getText(),
 									txtCampaignDescription.getText(),
-									Integer.parseInt(txtCampaignName.getText()),
-									Integer.parseInt(txtCampaignName.getText()),
-									Integer.parseInt(txtCampaignName.getText())
+									Integer.parseInt(txtCampaignLevelLow.getText()),
+									Integer.parseInt(txtCampaignLevelHigh.getText()),
+									Integer.parseInt(txtCampaignExperience.getText())
 									));
 					//playersPanel.removeAll();
 					//players = DB.filterPlayers(filteredPlayers);
-					refreshPlayersPanel(true);
+					refreshCampaignsPanel(true);
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}
@@ -393,8 +393,8 @@ public class AdventureGUI extends JFrame {
 							// Add listener for clicks
 							final int j =i;
 							campaignButtons[i].addActionListener(event -> {
-								System.out.println("Clicked: " + characterButtons[j].getText());
-								selectedCharacter = c.getId();
+								System.out.println("Clicked: " + campaignButtons[j].getText());
+								selectedCampaign = c.getId();
 								txtCampaignName.setText(c.getName());
 								txtCampaignSetting.setText(c.getSetting());
 								txtCampaignDescription.setText(c.getDescription());
@@ -403,23 +403,23 @@ public class AdventureGUI extends JFrame {
 								txtCampaignExperience.setText(((Integer)c.getAvailableExp()).toString());
 								btnDeleteCharacter.setVisible(true);
 								infoPanel.removeAll();
-								infoPanel.add(infoPanelCharacter);
+								infoPanel.add(infoPanelCampaign);
 								revalidate();
 								repaint();
 							});
 							
 							// Add hover effects
-							characterButtons[i].setOpaque(true);
-							characterButtons[i].addMouseListener(new MouseListener() {
+							campaignButtons[i].setOpaque(true);
+							campaignButtons[i].addMouseListener(new MouseListener() {
 								@Override
 								public void mouseEntered(MouseEvent e) {
-									characterButtons[j].setBackground(Color.LIGHT_GRAY);
+									campaignButtons[j].setBackground(Color.LIGHT_GRAY);
 									
 								}
 
 								@Override
 								public void mouseExited(MouseEvent e) {
-									characterButtons[j].setBackground(UIManager.getColor("control"));
+									campaignButtons[j].setBackground(UIManager.getColor("control"));
 									
 								}
 
@@ -435,7 +435,7 @@ public class AdventureGUI extends JFrame {
 								
 							});
 							
-							characterList.add(characterButtons[i]);
+							campaignList.add(campaignButtons[i]);
 							i++;
 						}
 						revalidate(); 
@@ -558,6 +558,9 @@ public class AdventureGUI extends JFrame {
 		// Make new panel to hold all of the campaigns
 		campaignList.setLayout(new BoxLayout(campaignList, BoxLayout.Y_AXIS)); // Box layout adds vertically
 		
+		refreshCampaignsPanel(true);
+		
+		/*
 		// Fill in all the campaigns
 		for(Campaign c : campaigns) {
 			JButton newButton = new JButton(c.getName());
@@ -611,8 +614,9 @@ public class AdventureGUI extends JFrame {
 			});
 			
 			campaignList.add(newButton);
+			
 		}
-		
+		*/
 		// Make a scroll pane and wrap the campaignList
 		JScrollPane campaignScrollPane = new JScrollPane(campaignList);
 		campaignPanel.add(campaignScrollPane, BorderLayout.CENTER);
