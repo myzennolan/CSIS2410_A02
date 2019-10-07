@@ -67,6 +67,21 @@ public class DB {
 		//return players;
 		
 	}
+
+	/**
+	 * Updates or inserts record to players table. Inserts if id is 0, updates if not.
+	 * @param player
+	 * @throws SQLException
+	 */
+	public static void commitCharacterToDB(AdvCharacter advCharacter) throws SQLException {
+		//ArrayList<Player> players;
+		String sql = (advCharacter.getId() == 0 ? sqlCharacter.insertCharacter(advCharacter) :  sqlCharacter.updateCharacter(advCharacter));
+		
+		executeStatement(sql);
+		//ResultSetMetaData metaData = results.getMetaData();
+		//return players;
+		
+	}
 	
 	/**
 	 * Returns ArrayList of characters, all if id = 0 or matching character if id != 0.
@@ -288,6 +303,11 @@ public class DB {
 		players = executePlayerQueries(sql);
 		//ResultSetMetaData metaData = results.getMetaData();
 		return players;
+	}
+
+	public static void deleteCampaign(int selectedCampaign) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

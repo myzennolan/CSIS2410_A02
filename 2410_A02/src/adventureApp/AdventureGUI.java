@@ -55,7 +55,8 @@ public class AdventureGUI extends JFrame {
 //campaigns
 	private int selectedCampaign = 0;
 	private JButton btnDeleteCampaign = new JButton("Delete Campaign");	
-	private JTextField txtCamapignName = new JTextField();
+	private JTextField txtCampaignName = new JTextField();
+	private JTextField txtCampaignSetting = new JTextField();
 	private JTextField txtCampaignDescription = new JTextField();
 	private JTextField txtCampaignExperience = new JTextField();
 	private JTextField txtCampaignLevel = new JTextField();
@@ -150,7 +151,7 @@ public class AdventureGUI extends JFrame {
 		JLabel lblInfo = new JLabel("Info");
 		infoPanel.add(lblInfo, BorderLayout.NORTH);
 
-		infoPanel.add(infoPanelPlayer, BorderLayout.CENTER);
+		//infoPanel.add(infoPanelPlayer, BorderLayout.CENTER);
 		infoPanelPlayer.setLayout(new BoxLayout(infoPanelPlayer, BoxLayout.Y_AXIS));
 		
 		JLabel lblFirstName = new JLabel("First Name");
@@ -204,7 +205,7 @@ public class AdventureGUI extends JFrame {
 		
 		infoPanelPlayer.add(btnCommit);		
 		infoPanelPlayer.add(btnDeletePlayer);
-		
+
 		
 		// ---- Character Info Panel ----
 		infoPanelCharacter.setLayout(new BoxLayout(infoPanelCharacter, BoxLayout.Y_AXIS));
@@ -218,25 +219,28 @@ public class AdventureGUI extends JFrame {
 		JLabel lblCharacterWisdom = new JLabel("Wisdom");
 		JLabel lblCharacterIntelligence = new JLabel("Intelligence");
 		JLabel lblCharacterCharisma = new JLabel("Charisma");
-		
-		txtFirstName = new JTextField();
-		txtLastName = new JTextField();
-		txtContact = new JTextField();
 
 		JButton btnCharcterCommit = new JButton("Commit to DB");
 		btnCommit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					DB.commitPlayerToDB(
-							new Player(
-									selectedPlayer,
-									txtFirstName.getText(),
-									txtLastName.getText(),
-									txtContact.getText()
+					DB.commitCharacterToDB(
+							new AdvCharacter(
+									selectedCharacter,
+									selectedPlayer, txtCharacterName.getText(),
+									txtCharacterClass.getText(),
+									Integer.parseInt(txtCharacterExperience.getText()),
+									Integer.parseInt(txtCharacterClass.getText()),
+									Integer.parseInt(txtCharacterClass.getText()),
+									Integer.parseInt(txtCharacterClass.getText()),
+									Integer.parseInt(txtCharacterClass.getText()),
+									Integer.parseInt(txtCharacterClass.getText()),
+									Integer.parseInt(txtCharacterClass.getText()),
+									0
 									));
 					//playersPanel.removeAll();
 					//players = DB.filterPlayers(filteredPlayers);
-					refreshPlayersPanel(true);
+					refreshCharactersPanel(true);
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}
@@ -294,7 +298,81 @@ public class AdventureGUI extends JFrame {
 		
 		infoPanelCharacter.add(btnCharcterCommit);		
 		infoPanelCharacter.add(btnDeleteCharacter);
+
 		
+		// ---- Campaign Info Panel ----
+		infoPanelCampaign.setLayout(new BoxLayout(infoPanelCampaign, BoxLayout.Y_AXIS));
+
+		JLabel lblCampaignName = new JLabel("Campaign Name");
+		JLabel lblCampaignDescription = new JLabel("Description");
+		JLabel lblCampaignSetting = new JLabel("Setting");
+		JLabel lblCampaignLevel = new JLabel("Minimum Level");
+		JLabel lblCampaignExperience = new JLabel("Experience Available");
+
+		JButton btnCampaignCommit = new JButton("Commit to DB");
+		btnCommit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					DB.commitPlayerToDB(
+							new Player(
+									selectedPlayer,
+									txtFirstName.getText(),
+									txtLastName.getText(),
+									txtContact.getText()
+									));
+					//playersPanel.removeAll();
+					//players = DB.filterPlayers(filteredPlayers);
+					refreshPlayersPanel(true);
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		
+			
+		btnDeleteCampaign.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//try {
+					DB.deleteCampaign(selectedCampaign);
+					refreshPlayersPanel(true);
+				//} catch (SQLException e1) {
+				//	e1.printStackTrace();
+				//}
+			}
+		});
+/*
+		txtCharacterName.setText("");
+		txtCharacterClass.setText("");
+		txtCharacterExperience.setText("");
+		txtCharacterStrength.setText("");
+		txtCharacterDexterity.setText("");
+		txtCharacterConstitution.setText("");
+		txtCharacterWisdom.setText("");
+		txtCharacterIntelligence.setText("");
+		txtCharacterCharisma.setText("");
+	*/	
+		infoPanelCampaign.add(lblCampaignName);
+		infoPanelCampaign.add(txtCampaignName);
+				
+		infoPanelCampaign.add(lblCampaignSetting);
+		infoPanelCampaign.add(txtCampaignSetting);
+		
+		infoPanelCampaign.add(lblCampaignDescription);
+		infoPanelCampaign.add(txtCampaignDescription);
+
+		infoPanelCampaign.add(lblCampaignLevel);
+		infoPanelCampaign.add(txtCampaignLevel);
+		
+		infoPanelCampaign.add(lblCampaignExperience);
+		infoPanelCampaign.add(txtCampaignExperience);
+		
+		infoPanelCampaign.add(btnCampaignCommit);		
+		infoPanelCampaign.add(btnDeleteCampaign);
+		
+	}
+
+	protected void refreshCharactersPanel(boolean b) {
+		// TODO Auto-generated method stub
 		
 	}
 
@@ -417,6 +495,10 @@ public class AdventureGUI extends JFrame {
 		btnNewCampaign.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				resetCampaignInfoPanel();
+				infoPanel.removeAll();
+				infoPanel.add(infoPanelCampaign);
+				revalidate();
+				repaint();
 			}
 			
 		});
@@ -566,7 +648,7 @@ public class AdventureGUI extends JFrame {
 	 * 
 	 */
 	private void resetCampaignInfoPanel() {
-		txtCamapignName.setText("");
+		txtCampaignName.setText("");
 		txtCampaignDescription.setText("");
 		txtCampaignExperience.setText("");
 		txtCampaignLevel.setText("");

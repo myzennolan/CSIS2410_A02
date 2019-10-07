@@ -61,7 +61,7 @@ public class sqlCharacter {
 	 * 
 	 * @return String "select *" SQL query "where"
 	 */
-	public static String updatePlayer(AdvCharacter advCharacter) {
+	public static String updateCharacter(AdvCharacter advCharacter) {
 		
 		return ""
 				+ "UPDATE pCharacter "
