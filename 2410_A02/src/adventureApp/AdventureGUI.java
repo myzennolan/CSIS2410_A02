@@ -33,6 +33,11 @@ import java.awt.event.ActionEvent;
 public class AdventureGUI extends JFrame {
 //test
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4999898966177525198L;
+
 	private JPanel contentPane;
 	
 //players
@@ -67,6 +72,7 @@ public class AdventureGUI extends JFrame {
 	private JTextField txtCharacterWisdom = new JTextField();
 	private JTextField txtCharacterIntelligence = new JTextField();
 	private JTextField txtCharacterCharisma = new JTextField();
+	//private JButton[] characterButtons;
 	
 	
 //info
@@ -123,7 +129,6 @@ public class AdventureGUI extends JFrame {
 			
 			
 		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		 refreshPlayersPanel(false);
@@ -171,7 +176,6 @@ public class AdventureGUI extends JFrame {
 					//players = DB.filterPlayers(filteredPlayers);
 					refreshPlayersPanel(true);
 				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -182,11 +186,8 @@ public class AdventureGUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					DB.deletePlayer(selectedPlayer);
-					//playersPanel.removeAll();
-					//players = DB.filterPlayers(filteredPlayers);
 					refreshPlayersPanel(true);
 				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -237,7 +238,6 @@ public class AdventureGUI extends JFrame {
 					//players = DB.filterPlayers(filteredPlayers);
 					refreshPlayersPanel(true);
 				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -248,11 +248,8 @@ public class AdventureGUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					DB.deletePlayer(selectedPlayer);
-					//playersPanel.removeAll();
-					//players = DB.filterPlayers(filteredPlayers);
 					refreshPlayersPanel(true);
 				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -355,7 +352,7 @@ public class AdventureGUI extends JFrame {
 	 */
 	private void campaignPanel() {
 
-		ArrayList<Campaign> campaigns = DB.getCampaigns(0);
+		campaigns = DB.getCampaigns(0);
 		
 		//String[] testData = {"Campaign One", "Campaign Two", "Campaign Three", "Campaign Four", "Campaign Five"};
 		
@@ -429,10 +426,60 @@ public class AdventureGUI extends JFrame {
 		// Done building panel, add it to the window
 		contentPane.add(campaignPanel);
 	}
+	
+	/**
+	 * List of Players as buttons.
+	 */
+	private void playersPanel(){
 
+		JComboBox<String> letterSelector = new JComboBox<String>();
+		letterSelector.addItem("Players");
+		for(Character i = 'A'; i <= 'Z'; i++) {
+			letterSelector.addItem(i.toString());
+		}
+		
+		letterSelector.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				filteredPlayers = letterSelector.getSelectedItem().toString();
+				players = DB.filterPlayers(filteredPlayers);
+				//playersPanel.removeAll();
+				System.out.println("Clicked: " + letterSelector.getSelectedItem().toString());
+				refreshPlayersPanel(true);
+			}
+		});
+		
+		//JLabel lblPlayers = new JLabel("Players");
+		//playersPanel.add(lblPlayers, BorderLayout.NORTH);
+		
+		playersList.setLayout(new BoxLayout(playersList, BoxLayout.Y_AXIS)); 
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setBounds(50, 30, 300, 50);
+		playersPanel.add(scrollPane, BorderLayout.CENTER);
+		playersPanel.add(letterSelector, BorderLayout.NORTH);
+		
+		// Fill in all the campaigns
+		
+				
+				JButton btnNewPlayer = new JButton("New Player");
+				btnNewPlayer.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+
+						resetPlayerInfoPanel();
+						infoPanel.removeAll();
+						infoPanel.add(infoPanelPlayer);
+						revalidate();
+						repaint();
+					}
+					
+				});
+				playersPanel.add(btnNewPlayer, BorderLayout.SOUTH);
+	}
+	
+	
 	/**
 	 * panel refresh method
-	 * removes old records before repopulating 
+	 * removes old records from the  before repopulating 
 	 * 
 	 * @param removeOld
 	 */
@@ -442,17 +489,11 @@ public class AdventureGUI extends JFrame {
 		for(JButton pbtn: playerButtons) {
 			playersList.remove(pbtn);
 			pbtn = null;
-			//pbtn.revalidate();
+
 		}
 		}
 		players = DB.filterPlayers(filteredPlayers);
 
-		//try {
-			//players = DB.getPlayers(0);
-		//} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			//e1.printStackTrace();
-		//}
 		int i = 0;
 		playerButtons = new JButton[players.size()];
 				for(Player p : players) {
@@ -501,65 +542,12 @@ public class AdventureGUI extends JFrame {
 					i++;
 				}
 				revalidate(); 
-				repaint();/*
-				playersList.revalidate();
-				playersList.repaint();
-				scrollPane.revalidate();
-				scrollPane.repaint();
-				playersPanel.revalidate();
-				playersPanel.repaint();
-				*/
+				repaint();
 	}
-	
+
 	/**
-	 * List of Players as buttons.
+	 * 
 	 */
-	private void playersPanel(){
-
-		JComboBox<String> letterSelector = new JComboBox();
-		letterSelector.addItem("Players");
-		for(Character i = 'A'; i <= 'Z'; i++) {
-			letterSelector.addItem(i.toString());
-		}
-		
-		letterSelector.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				filteredPlayers = letterSelector.getSelectedItem().toString();
-				players = DB.filterPlayers(filteredPlayers);
-				//playersPanel.removeAll();
-				System.out.println("Clicked: " + letterSelector.getSelectedItem().toString());
-				refreshPlayersPanel(true);
-			}
-		});
-		
-		//JLabel lblPlayers = new JLabel("Players");
-		//playersPanel.add(lblPlayers, BorderLayout.NORTH);
-		
-		playersList.setLayout(new BoxLayout(playersList, BoxLayout.Y_AXIS)); 
-        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        scrollPane.setBounds(50, 30, 300, 50);
-		playersPanel.add(scrollPane, BorderLayout.CENTER);
-		playersPanel.add(letterSelector, BorderLayout.NORTH);
-		
-		// Fill in all the campaigns
-		
-				
-				JButton btnNewPlayer = new JButton("New Player");
-				btnNewPlayer.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-
-						resetPlayerInfoPanel();
-						infoPanel.removeAll();
-						infoPanel.add(infoPanelPlayer);
-						revalidate();
-						repaint();
-					}
-					
-				});
-				playersPanel.add(btnNewPlayer, BorderLayout.SOUTH);
-	}
-
 	private void resetCharacterInfoPanel() {
 		txtCharacterName.setText("");
 		txtCharacterClass.setText("");

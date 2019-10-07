@@ -17,6 +17,7 @@ public class AdvCharacter {
 	private int Wisdom;
 	private int Charisma;
 	private int Intelligence;
+	private int Level;
 	
 	// getters and setters
 	public String getName() {
@@ -95,6 +96,10 @@ public class AdvCharacter {
 		return id;
 	}
 
+	public int getLevel() {
+		return Level;
+	}
+
 	public int getPlayerID() {
 		return playerID;
 	}
@@ -106,6 +111,7 @@ public class AdvCharacter {
 		return "Name: " + Name 
 				+ "\nClass: " +CharClass 
 				+ "\nExperience: " + Experience
+				+ "\nLevel: " + Level
 				+ "\n\nStrength: " + Strength 
 				+ "\nDexterity: " + Dexterity 
 				+ "\nConstitution: "	+ Constitution 
@@ -115,8 +121,8 @@ public class AdvCharacter {
 	}
 	
 	// default constructor
-	public AdvCharacter(int id, int playerID, String name, String charClass, int strength,
-			int dexterity, int constitution, int wisdom, int charisma, int intelligence, int experience) {
+	public AdvCharacter(int id, int playerID, String name, String charClass, int experience, int strength,
+			int dexterity, int constitution, int wisdom, int charisma, int intelligence, int level) {
 		super();
 		this.id = id;
 		this.playerID = playerID;
@@ -129,6 +135,7 @@ public class AdvCharacter {
 		Wisdom = wisdom;
 		Charisma = charisma;
 		Intelligence = intelligence;
+		Level = level;
 	}
 	
 	// unused method

@@ -86,6 +86,26 @@ public class DB {
 		//characters = executeQueries(sql);
 		//ResultSetMetaData metaData = results.getMetaData();
 		return characters;
+	}	
+	
+	/**
+	 * Returns ArrayList of characters, all if id = 0 or matching character if id != 0.
+	 * @param id
+	 * @return characters
+	 * @throws SQLException
+	 */
+	public static ArrayList<AdvCharacter> getPlayerCharacters(int id) throws SQLException {
+
+		ArrayList<AdvCharacter> characters = new ArrayList<>();
+		String sql = (id == 0 ? sqlCharacter.selectAllCharacters():sqlCharacter.selectCharacterByPlayerID(id));
+		
+		characters = executeCharacterQueries(sql);
+		
+		
+		
+		//characters = executeQueries(sql);
+		//ResultSetMetaData metaData = results.getMetaData();
+		return characters;
 	}
 	
 	/**
@@ -168,7 +188,8 @@ public class DB {
 	          					 (int) results.getObject(8),
 	          					 (int) results.getObject(9),
 	          					 (int) results.getObject(10),
-	          					 (int) results.getObject(11)
+	          					 (int) results.getObject(11),
+	          					 (int) results.getObject(12)
 	          					 ));
 	          }
 

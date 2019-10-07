@@ -78,16 +78,16 @@ public class sqlPlayer {
 		return "delete from player where id = "+id;
 		
 	}
+
+	public static String selectPlayerLikeLetter(String selectedItem) {
+		// TODO Auto-generated method stub
+		return "select * from player where FirstName like '"+selectedItem+"%' or LastName like '"+selectedItem+"%'";
+	}
 	
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-	}
-
-	public static String selectPlayerLikeLetter(String selectedItem) {
-		// TODO Auto-generated method stub
-		return "select * from player where FirstName like '"+selectedItem+"%' or LastName like '"+selectedItem+"%'";
 	}
 
 }

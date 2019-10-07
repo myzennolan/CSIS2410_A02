@@ -44,12 +44,12 @@ public class sqlFill {
         return ""
         + "INSERT INTO pCharacter (playerId, name, class, experience, strength, dexterity, constitution, wisdom, charisma, intelligence) "
         + "VALUES "
-        + "(1, 'Bob', 'Knight', 0, 10, 10, 15, 1, 50, 6),"
-        + "(2, 'Winston', 'Mage', 5, 3, 3, 500, 3, 6, 0),"
-        + "(3, 'Wiley', 'Archer', 3, 70, 49, 49, 1, 0, 54),"
-        + "(4, 'Mangone', 'Knight', 6, 80, 1, 1, 543, 90, 63),"
-        + "(5, 'Lukner', 'Fighter', 64, 45, 643, 643, 568, 31, 75),"
-        + "(6, 'Lim', 'Warlock', 41, 65, 53, 75,  75, 84, 37)";
+        + "(1, 'Bob', 'Knight', 500, 10, 10, 15, 1, 50, 6),"
+        + "(2, 'Winston', 'Mage', 1200, 3, 3, 500, 3, 6, 0),"
+        + "(3, 'Wiley', 'Archer', 3000, 70, 49, 49, 1, 0, 54),"
+        + "(4, 'Mangone', 'Knight', 600, 80, 1, 1, 543, 90, 63),"
+        + "(5, 'Lukner', 'Fighter', 6400, 45, 643, 643, 568, 31, 75),"
+        + "(6, 'Lim', 'Warlock', 2250, 65, 53, 75,  75, 84, 37)";
     }
 
     /**
@@ -98,6 +98,6 @@ public class sqlFill {
         return ""
         + "INSERT INTO campaign (Name, Setting, Description,LevelLow,LevelHigh,AvailableExp) "
         + "VALUES "
-        + "('Bagel Heist', 'New York', 'Why are hobbit attacking a bagelry?',1,4,500)";
+        + "('Bagel Heist', 'New York', 'Why are hobbits attacking a bagelry?',1,4,500)";
     }
 }
