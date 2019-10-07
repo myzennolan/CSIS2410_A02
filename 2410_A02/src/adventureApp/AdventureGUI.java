@@ -726,6 +726,8 @@ public class AdventureGUI extends JFrame {
 						txtLastName.setText(p.getLastName());
 						txtContact.setText(p.getContact());
 						refreshCharactersPanel(false);
+						infoPanel.removeAll();
+						infoPanel.add(infoPanelPlayer);
 						lblCharacters.setText("Characters - "+p.getFirstName()+" "+p.getLastName());
 						btnDeletePlayer.setVisible(true);
 					});
