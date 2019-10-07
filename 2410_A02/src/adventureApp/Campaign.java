@@ -40,7 +40,7 @@ public class Campaign {
 		Description = description;
 	}
 
-	public int getLevelLow() {
+	public Integer getLevelLow() {
 		return levelLow;
 	}
 
@@ -48,7 +48,7 @@ public class Campaign {
 		this.levelLow = levelLow;
 	}
 
-	public int getLevelHigh() {
+	public Integer getLevelHigh() {
 		return levelHigh;
 	}
 
@@ -56,7 +56,7 @@ public class Campaign {
 		this.levelHigh = levelHigh;
 	}
 
-	public int getAvailableExp() {
+	public Integer getAvailableExp() {
 		return availableExp;
 	}
 

@@ -3,11 +3,9 @@ package adventureApp;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 
 import database.sqlCampaign;
 import database.sqlCharacter;
@@ -44,7 +42,6 @@ public class DB {
 	 * @throws SQLException
 	 */
 	public static void deletePlayer(int id) throws SQLException {
-		ArrayList<Player> players;
 		String sql = sqlPlayer.deletePlayerByID(id);
 		
 		executeStatement(sql);
@@ -76,7 +73,22 @@ public class DB {
 	public static void commitCharacterToDB(AdvCharacter advCharacter) throws SQLException {
 		//ArrayList<Player> players;
 		String sql = (advCharacter.getId() == 0 ? sqlCharacter.insertCharacter(advCharacter) :  sqlCharacter.updateCharacter(advCharacter));
+		System.out.println(sql);
+		executeStatement(sql);
+		//ResultSetMetaData metaData = results.getMetaData();
+		//return players;
 		
+	}
+
+	/**
+	 * Updates or inserts record to players table. Inserts if id is 0, updates if not.
+	 * @param player
+	 * @throws SQLException
+	 */
+	public static void commitCampaignToDB(Campaign campaign) throws SQLException {
+		//ArrayList<Player> players;
+		String sql = (campaign.getId() == 0 ? sqlCampaign.insertCampaign(campaign) :  sqlCampaign.updateCampaign(campaign));
+		System.out.println(sql);
 		executeStatement(sql);
 		//ResultSetMetaData metaData = results.getMetaData();
 		//return players;
@@ -109,7 +121,7 @@ public class DB {
 	 * @return characters
 	 * @throws SQLException
 	 */
-	public static ArrayList<AdvCharacter> getPlayerCharacters(int id) throws SQLException {
+	public static ArrayList<AdvCharacter> getPlayerCharacters(int id) {
 
 		ArrayList<AdvCharacter> characters = new ArrayList<>();
 		String sql = (id == 0 ? sqlCharacter.selectAllCharacters():sqlCharacter.selectCharacterByPlayerID(id));
@@ -155,7 +167,7 @@ public class DB {
 	     // for (String query : queries) {
 	        ResultSet results = statement.executeQuery(query);
 	      
-	        ResultSetMetaData metaData = results.getMetaData();
+	       // ResultSetMetaData metaData = results.getMetaData();
 	        while (results.next()) {
 
 	        	 players.add(
@@ -189,7 +201,7 @@ public class DB {
 	     // for (String query : queries) {
 	        ResultSet results = statement.executeQuery(query);
 	      
-	        ResultSetMetaData metaData = results.getMetaData();
+	     //   ResultSetMetaData metaData = results.getMetaData();
 	        while (results.next()) {
 
 	          	 characters.add(new AdvCharacter(
@@ -231,7 +243,7 @@ public class DB {
 	     // for (String query : queries) {
 	        ResultSet results = statement.executeQuery(query);
 	      
-	        ResultSetMetaData metaData = results.getMetaData();
+	    //    ResultSetMetaData metaData = results.getMetaData();
 	        while (results.next()) {
 
 	        	campaign.add(new Campaign(
@@ -283,7 +295,6 @@ public class DB {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		
 		try {
 			
@@ -291,7 +302,7 @@ public class DB {
 				System.out.println(p.getName());
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 	}
@@ -301,13 +312,20 @@ public class DB {
 		String sql = (selectedItem == "Players" ? sqlPlayer.selectAllPlayers():sqlPlayer.selectPlayerLikeLetter(selectedItem));
 		
 		players = executePlayerQueries(sql);
-		//ResultSetMetaData metaData = results.getMetaData();
 		return players;
 	}
 
 	public static void deleteCampaign(int selectedCampaign) {
-		// TODO Auto-generated method stub
 		
+		String sql = sqlCampaign.deleteCampaignByID(selectedCampaign);
+		
+		executeStatement(sql);
+	}
+
+	public static void deleteCharacter(int selectedCharacter) {
+		String sql = sqlCharacter.deleteCharacterByID(selectedCharacter);
+		
+		executeStatement(sql);
 	}
 
 }

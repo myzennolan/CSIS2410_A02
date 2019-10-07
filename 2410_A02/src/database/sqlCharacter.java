@@ -26,7 +26,7 @@ public class sqlCharacter {
 	
 	public static String selectCharacterByPlayerID(int id) {
 		
-		return "select *,t2.level from pcharacter as t1 "
+		return "select t1.*,t2.level from pcharacter as t1 "
 				+ "left join experience as t2 on t1.experience between t2.minExp and t2.maxExp "
 				+ "where playerid = "+id;
 		
@@ -52,7 +52,7 @@ public class sqlCharacter {
         + advCharacter.getWisdom()+", "
         + advCharacter.getCharisma()+", "
         + advCharacter.getIntelligence()
-        +"),";
+        +")";
 		
 	}
 	
@@ -68,13 +68,24 @@ public class sqlCharacter {
 				+ "Set Name = '"+advCharacter.getName()+"',"
 				        + "Class = '"+advCharacter.getCharClass()+"',"
 				        + "Experience = "+advCharacter.getExperience()+", "
-				        + "Str = "+advCharacter.getStrength()+", "
-				        + "Dex = "+advCharacter.getDexterity()+", "
-				        + "Con = "+advCharacter.getConstitution()+", "
-				        + "Wis = "+advCharacter.getWisdom()+", "
-				        + "Cha = "+advCharacter.getCharisma()+", "
-				        + "Int = "+advCharacter.getIntelligence()
+				        + "Strength = "+advCharacter.getStrength()+", "
+				        + "Dexterity = "+advCharacter.getDexterity()+", "
+				        + "Constitution = "+advCharacter.getConstitution()+", "
+				        + "Wisdom = "+advCharacter.getWisdom()+", "
+				        + "Charisma = "+advCharacter.getCharisma()+", "
+				        + "Intelligence = "+advCharacter.getIntelligence()
 				+ " WHERE id = "+advCharacter.getId();
+		
+	}
+	
+	/**
+	 * SQL Query for selecting all fields of a player
+	 * 
+	 * @return String "select *" SQL query "where"
+	 */
+	public static String deleteCharacterByID(int id) {
+		
+		return "delete from pCharacter where id = "+id;
 		
 	}
 

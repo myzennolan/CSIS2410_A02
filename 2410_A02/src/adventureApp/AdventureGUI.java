@@ -59,7 +59,10 @@ public class AdventureGUI extends JFrame {
 	private JTextField txtCampaignSetting = new JTextField();
 	private JTextField txtCampaignDescription = new JTextField();
 	private JTextField txtCampaignExperience = new JTextField();
-	private JTextField txtCampaignLevel = new JTextField();
+	private JTextField txtCampaignLevelLow = new JTextField();
+	private JTextField txtCampaignLevelHigh = new JTextField();
+	private JButton[] campaignButtons;
+	private JPanel campaignList = new JPanel();
 
 //characters
 	private int selectedCharacter = 0;
@@ -73,7 +76,9 @@ public class AdventureGUI extends JFrame {
 	private JTextField txtCharacterWisdom = new JTextField();
 	private JTextField txtCharacterIntelligence = new JTextField();
 	private JTextField txtCharacterCharisma = new JTextField();
-	//private JButton[] characterButtons;
+	private JButton[] characterButtons;
+	private CharacterPanel characterList = new CharacterPanel();
+	private JLabel lblCharacters = new JLabel("Characters");
 	
 	
 //info
@@ -221,7 +226,7 @@ public class AdventureGUI extends JFrame {
 		JLabel lblCharacterCharisma = new JLabel("Charisma");
 
 		JButton btnCharcterCommit = new JButton("Commit to DB");
-		btnCommit.addActionListener(new ActionListener() {
+		btnCharcterCommit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					DB.commitCharacterToDB(
@@ -230,17 +235,17 @@ public class AdventureGUI extends JFrame {
 									selectedPlayer, txtCharacterName.getText(),
 									txtCharacterClass.getText(),
 									Integer.parseInt(txtCharacterExperience.getText()),
-									Integer.parseInt(txtCharacterClass.getText()),
-									Integer.parseInt(txtCharacterClass.getText()),
-									Integer.parseInt(txtCharacterClass.getText()),
-									Integer.parseInt(txtCharacterClass.getText()),
-									Integer.parseInt(txtCharacterClass.getText()),
-									Integer.parseInt(txtCharacterClass.getText()),
+									Integer.parseInt(txtCharacterStrength.getText()),
+									Integer.parseInt(txtCharacterDexterity.getText()),
+									Integer.parseInt(txtCharacterConstitution.getText()),
+									Integer.parseInt(txtCharacterWisdom.getText()),
+									Integer.parseInt(txtCharacterIntelligence.getText()),
+									Integer.parseInt(txtCharacterCharisma.getText()),
 									0
 									));
 					//playersPanel.removeAll();
 					//players = DB.filterPlayers(filteredPlayers);
-					refreshCharactersPanel(true);
+					refreshCharactersPanel(false);
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}
@@ -250,12 +255,8 @@ public class AdventureGUI extends JFrame {
 			
 		btnDeleteCharacter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					DB.deletePlayer(selectedPlayer);
-					refreshPlayersPanel(true);
-				} catch (SQLException e1) {
-					e1.printStackTrace();
-				}
+				DB.deleteCharacter(selectedCharacter);
+				refreshCharactersPanel(false);
 			}
 		});
 /*
@@ -306,19 +307,23 @@ public class AdventureGUI extends JFrame {
 		JLabel lblCampaignName = new JLabel("Campaign Name");
 		JLabel lblCampaignDescription = new JLabel("Description");
 		JLabel lblCampaignSetting = new JLabel("Setting");
-		JLabel lblCampaignLevel = new JLabel("Minimum Level");
+		JLabel lblCampaignLevelLow = new JLabel("Minimum Level");
+		JLabel lblCampaignLevelHigh = new JLabel("Maximum Level");
 		JLabel lblCampaignExperience = new JLabel("Experience Available");
 
 		JButton btnCampaignCommit = new JButton("Commit to DB");
-		btnCommit.addActionListener(new ActionListener() {
+		btnCampaignCommit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					DB.commitPlayerToDB(
-							new Player(
-									selectedPlayer,
-									txtFirstName.getText(),
-									txtLastName.getText(),
-									txtContact.getText()
+					DB.commitCampaignToDB(
+							new Campaign(
+									selectedCampaign,
+									txtCampaignName.getText(),
+									txtCampaignSetting.getText(),
+									txtCampaignDescription.getText(),
+									Integer.parseInt(txtCampaignName.getText()),
+									Integer.parseInt(txtCampaignName.getText()),
+									Integer.parseInt(txtCampaignName.getText())
 									));
 					//playersPanel.removeAll();
 					//players = DB.filterPlayers(filteredPlayers);
@@ -334,7 +339,7 @@ public class AdventureGUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				//try {
 					DB.deleteCampaign(selectedCampaign);
-					refreshPlayersPanel(true);
+					refreshCampaignsPanel(true);
 				//} catch (SQLException e1) {
 				//	e1.printStackTrace();
 				//}
@@ -360,8 +365,11 @@ public class AdventureGUI extends JFrame {
 		infoPanelCampaign.add(lblCampaignDescription);
 		infoPanelCampaign.add(txtCampaignDescription);
 
-		infoPanelCampaign.add(lblCampaignLevel);
-		infoPanelCampaign.add(txtCampaignLevel);
+		infoPanelCampaign.add(lblCampaignLevelLow);
+		infoPanelCampaign.add(txtCampaignLevelLow);
+
+		infoPanelCampaign.add(lblCampaignLevelHigh);
+		infoPanelCampaign.add(txtCampaignLevelHigh);
 		
 		infoPanelCampaign.add(lblCampaignExperience);
 		infoPanelCampaign.add(txtCampaignExperience);
@@ -371,9 +379,134 @@ public class AdventureGUI extends JFrame {
 		
 	}
 
-	protected void refreshCharactersPanel(boolean b) {
+	private void refreshCampaignsPanel(boolean b) {
 		// TODO Auto-generated method stub
+				campaignList.removeAll();
+				campaigns = DB.getCampaigns(0);
+
+				int i = 0;
+				campaignButtons = new JButton[campaigns.size()];
+						for(Campaign c : campaigns) {
+							campaignButtons[i] = new JButton(c.getName()+" ["+c.getSetting()+"](Level: "+c.getLevelLow()+" - "+c.getLevelHigh()+")");
+							campaignButtons[i].setBorder(new EmptyBorder(5,5,5,5)); // Add padding to space out labels
+							
+							// Add listener for clicks
+							final int j =i;
+							campaignButtons[i].addActionListener(event -> {
+								System.out.println("Clicked: " + characterButtons[j].getText());
+								selectedCharacter = c.getId();
+								txtCampaignName.setText(c.getName());
+								txtCampaignSetting.setText(c.getSetting());
+								txtCampaignDescription.setText(c.getDescription());
+								txtCampaignLevelLow.setText(((Integer)c.getLevelLow()).toString());
+								txtCampaignLevelHigh.setText(((Integer)c.getLevelHigh()).toString());
+								txtCampaignExperience.setText(((Integer)c.getAvailableExp()).toString());
+								btnDeleteCharacter.setVisible(true);
+								infoPanel.removeAll();
+								infoPanel.add(infoPanelCharacter);
+								revalidate();
+								repaint();
+							});
+							
+							// Add hover effects
+							characterButtons[i].setOpaque(true);
+							characterButtons[i].addMouseListener(new MouseListener() {
+								@Override
+								public void mouseEntered(MouseEvent e) {
+									characterButtons[j].setBackground(Color.LIGHT_GRAY);
+									
+								}
+
+								@Override
+								public void mouseExited(MouseEvent e) {
+									characterButtons[j].setBackground(UIManager.getColor("control"));
+									
+								}
+
+								// Not used
+								@Override
+								public void mouseClicked(MouseEvent e) {}
+
+								@Override
+								public void mousePressed(MouseEvent e) {}
+
+								@Override
+								public void mouseReleased(MouseEvent e) {}
+								
+							});
+							
+							characterList.add(characterButtons[i]);
+							i++;
+						}
+						revalidate(); 
+						repaint();
 		
+	}
+
+	protected void refreshCharactersPanel(boolean removeOld) {
+		// TODO Auto-generated method stub
+		characterList.removeAll();
+		advCharacters = DB.getPlayerCharacters(selectedPlayer);
+
+		int i = 0;
+		characterButtons = new JButton[advCharacters.size()];
+				for(AdvCharacter c : advCharacters) {
+					characterButtons[i] = new JButton(c.getName()+" ["+c.getCharClass()+"](Level: "+c.getLevel()+")");
+					characterButtons[i].setBorder(new EmptyBorder(5,5,5,5)); // Add padding to space out labels
+					
+					// Add listener for clicks
+					final int j =i;
+					characterButtons[i].addActionListener(event -> {
+						System.out.println("Clicked: " + characterButtons[j].getText());
+						selectedCharacter = c.getId();
+						txtCharacterName.setText(c.getName());
+						txtCharacterClass.setText(c.getCharClass());
+						txtCharacterExperience.setText(((Integer)c.getExperience()).toString());
+						txtCharacterStrength.setText(((Integer)c.getStrength()).toString());
+						txtCharacterDexterity.setText(((Integer)c.getDexterity()).toString());
+						txtCharacterConstitution.setText(((Integer)c.getConstitution()).toString());
+						txtCharacterWisdom.setText(((Integer)c.getWisdom()).toString());
+						txtCharacterIntelligence.setText(((Integer)c.getIntelligence()).toString());
+						txtCharacterCharisma.setText(((Integer)c.getCharisma()).toString());
+						btnDeleteCharacter.setVisible(true);
+						infoPanel.removeAll();
+						infoPanel.add(infoPanelCharacter);
+						revalidate();
+						repaint();
+					});
+					
+					// Add hover effects
+					characterButtons[i].setOpaque(true);
+					characterButtons[i].addMouseListener(new MouseListener() {
+						@Override
+						public void mouseEntered(MouseEvent e) {
+							characterButtons[j].setBackground(Color.LIGHT_GRAY);
+							
+						}
+
+						@Override
+						public void mouseExited(MouseEvent e) {
+							characterButtons[j].setBackground(UIManager.getColor("control"));
+							
+						}
+
+						// Not used
+						@Override
+						public void mouseClicked(MouseEvent e) {}
+
+						@Override
+						public void mousePressed(MouseEvent e) {}
+
+						@Override
+						public void mouseReleased(MouseEvent e) {}
+						
+					});
+					
+					characterList.add(characterButtons[i]);
+					i++;
+				}
+				revalidate(); 
+				repaint();
 	}
 
 	/**
@@ -383,29 +516,8 @@ public class AdventureGUI extends JFrame {
 		JPanel charactersPanel = new JPanel();
 		contentPane.add(charactersPanel);
 		charactersPanel.setLayout(new BorderLayout(0, 0));
-		CharacterPanel characterList = new CharacterPanel();
 		charactersPanel.add(characterList, BorderLayout.CENTER);
-		//AdvCharacter[] testCharacters = advCharacters.toArray(testCharacters);
-		/*	
-			{
-				new AdvCharacter(1, 1, "Dom", "Mage",12,15,13,14,15,12,905),
-				new AdvCharacter(2, 1, "Nick", "Knight",12,15,13,14,15,12,905),
-				new AdvCharacter(3, 2, "Nolan", "Cleric",12,15,13,14,15,12,905),
-				new AdvCharacter(4, 3, "Trevor", "Archer",12,15,13,14,15,12,905)
-		};*/
 		
-		for (AdvCharacter c : advCharacters)
-		{
-			JButton newButton = new JButton(c.getName());
-			newButton.setBorder(new EmptyBorder(5, 5, 5, 5));
-			characterList.add(newButton);
-			
-			newButton.addActionListener(event -> {
-				JOptionPane.showMessageDialog(null, c.toString(), "Character: " + c.getName(), JOptionPane.INFORMATION_MESSAGE);
-			});
-		}
-		
-		JLabel lblCharacters = new JLabel("Characters");
 		charactersPanel.add(lblCharacters, BorderLayout.NORTH);
 		
 
@@ -444,7 +556,6 @@ public class AdventureGUI extends JFrame {
 		campaignPanel.add(lblCampaigns, BorderLayout.NORTH);
 		
 		// Make new panel to hold all of the campaigns
-		JPanel campaignList = new JPanel();
 		campaignList.setLayout(new BoxLayout(campaignList, BoxLayout.Y_AXIS)); // Box layout adds vertically
 		
 		// Fill in all the campaigns
@@ -455,6 +566,21 @@ public class AdventureGUI extends JFrame {
 			// Add listener for clicks
 			newButton.addActionListener(event -> {
 				System.out.println("Clicked: " + c.getName());
+				
+
+				txtCampaignName.setText(c.getName());
+				txtCampaignDescription.setText(c.getDescription());
+				txtCampaignSetting.setText(c.getSetting());
+				txtCampaignExperience.setText(c.getAvailableExp().toString());
+				txtCampaignLevelLow.setText(c.getLevelLow().toString());
+				txtCampaignLevelHigh.setText(c.getLevelHigh().toString());
+				selectedCampaign = 0;
+				btnDeleteCampaign.setVisible(true);
+				infoPanel.removeAll();
+				infoPanel.add(infoPanelCampaign);
+				revalidate();
+				repaint();
+				
 			});
 			
 			// Add hover effects
@@ -590,6 +716,8 @@ public class AdventureGUI extends JFrame {
 						txtFirstName.setText(p.getFirstName());
 						txtLastName.setText(p.getLastName());
 						txtContact.setText(p.getContact());
+						refreshCharactersPanel(false);
+						lblCharacters.setText("Characters - "+p.getFirstName()+" "+p.getLastName());
 						btnDeletePlayer.setVisible(true);
 					});
 					
@@ -651,7 +779,8 @@ public class AdventureGUI extends JFrame {
 		txtCampaignName.setText("");
 		txtCampaignDescription.setText("");
 		txtCampaignExperience.setText("");
-		txtCampaignLevel.setText("");
+		txtCampaignLevelLow.setText("");
+		txtCampaignLevelHigh.setText("");
 		selectedCampaign = 0;
 		btnDeleteCampaign.setVisible(false);
 	}
