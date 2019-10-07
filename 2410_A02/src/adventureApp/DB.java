@@ -14,6 +14,7 @@ import database.sqlPlayer;
 /**
  * This is the local Database of the Adventure Database Application.
  * It holds the players, characters, campaigns, and weapons of the application.
+ * 
  * @author Nolan Harris, Trevor Hodson, and Dominick Wiley
  *
  */
@@ -36,7 +37,9 @@ public class DB {
 		
 	}
 	/**
-	 * runs executePlayerQueries and returns ArrayList<Players>
+	 * runs executePlayerQueries and returns ArrayList<Players> filters by campaign id
+	 * 
+	 * Unused
 	 * 
 	 * @param id
 	 * @return players ArrayList<Players>
@@ -97,7 +100,7 @@ public class DB {
 	}
 
 	/**
-	 * Updates or inserts record to players table. Inserts if id is 0, updates if not.
+	 * Updates or inserts record to campaign table. Inserts if id is 0, updates if not.
 	 * @param player
 	 * @throws SQLException
 	 */
@@ -322,7 +325,13 @@ public class DB {
 			e.printStackTrace();
 		}
 	}
-
+	
+	/**
+	 * SQL statement generator for filtering players by first or last initial.
+	 * 
+	 * @param selectedItem
+	 * @return players
+	 */
 	public static ArrayList<Player> filterPlayers(String selectedItem) {
 		ArrayList<Player> players;
 		String sql = (selectedItem == "Players" ? sqlPlayer.selectAllPlayers():sqlPlayer.selectPlayerLikeLetter(selectedItem));
@@ -331,6 +340,11 @@ public class DB {
 		return players;
 	}
 
+	/**
+	 * Delete campaigns by id number
+	 * 
+	 * @param selectedCampaign
+	 */
 	public static void deleteCampaign(int selectedCampaign) {
 		
 		String sql = sqlCampaign.deleteCampaignByID(selectedCampaign);
@@ -338,6 +352,10 @@ public class DB {
 		executeStatement(sql);
 	}
 
+	/**
+	 * Delete character by id number.
+	 * @param selectedCharacter
+	 */
 	public static void deleteCharacter(int selectedCharacter) {
 		String sql = sqlCharacter.deleteCharacterByID(selectedCharacter);
 		

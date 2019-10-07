@@ -14,6 +14,7 @@ import database.sqlSelect;
  * This is the console class of the Adventure Database Application. 
  * In order for the application to run properly, this class 
  * must be executed first.
+ * 
  * @author Nolan Harris, Trevor Hodson, and Dominick Wiley
  *
  */
@@ -118,6 +119,11 @@ public class console {
     }
   }
 
+  /**
+   * Executes all sql statements passed as a parameter list.
+   * 
+   * @param statements
+   */
   private static void executeStatement(String... statements) {
     try (Connection connection = DriverManager.getConnection("jdbc:derby:adventure;create=true");
         Statement statement = connection.createStatement();) {

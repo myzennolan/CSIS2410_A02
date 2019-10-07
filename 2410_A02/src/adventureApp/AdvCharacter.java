@@ -2,7 +2,8 @@ package adventureApp;
 /**
  * This is the AdvCharacter class for the Adventure Database App. These are
  * the characters that each player uses within the application.
- * @author Nolan Harris
+ * 
+ * @author Nolan Harris, Trevor Hodson, and Dominick Wiley
  *
  */
 public class AdvCharacter {

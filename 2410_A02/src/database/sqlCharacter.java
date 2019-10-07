@@ -5,7 +5,9 @@ import adventureApp.Player;
 
 public class sqlCharacter {
 
+
 	/**
+	 * SQL string for selecting all items from the Characters table with "Level" coming from the Experience Table.
 	 * 
 	 * @return
 	 */
@@ -16,6 +18,11 @@ public class sqlCharacter {
 		
 	}
 	
+	/**
+	 * SQL string for selecting a single items from the Characters table by id with "Level" coming from the Experience Table.
+	 * 
+	 * @return
+	 */
 	public static String selectCharacterByID(int id) {
 		
 		return "select t1.*,CASE WHEN t2.level is null then 0 else t2.level end as level from pcharacter as t1 "
@@ -24,6 +31,11 @@ public class sqlCharacter {
 		
 	}
 	
+	/**
+	 * SQL string for selecting all items from the Characters table  by player id number with "Level" coming from the Experience Table.
+	 * 
+	 * @return
+	 */
 	public static String selectCharacterByPlayerID(int id) {
 		
 		return "select t1.*,CASE WHEN t2.level is null then 0 else t2.level end as level from pcharacter as t1 "

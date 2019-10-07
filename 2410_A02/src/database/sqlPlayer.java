@@ -2,6 +2,12 @@ package database;
 
 import adventureApp.Player;
 
+/**
+ * Assortment of player specific sql strings.
+ * 
+ * @author Nolan Harris, Trevor Hodsdon, Dominick Wiley
+ *
+ */
 public class sqlPlayer {
 
 	/**
@@ -93,6 +99,11 @@ public class sqlPlayer {
 		
 	}
 
+	/**
+	 * SQL string for selecting a list of players whose first or last names begin with a specific character.
+	 * @param selectedItem
+	 * @return
+	 */
 	public static String selectPlayerLikeLetter(String selectedItem) {
 		// TODO Auto-generated method stub
 		return "select * from player where FirstName like '"+selectedItem+"%' or LastName like '"+selectedItem+"%'";

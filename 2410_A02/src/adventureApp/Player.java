@@ -1,8 +1,10 @@
 package adventureApp;
+
 /**
  * This is the Player class of the Adventure Database Application.
  * It represents the players of the application.
- * @author Nolan Harris
+ * 
+ * @author Nolan Harris, Trevor Hodson, and Dominick Wiley
  *
  */
 public class Player {

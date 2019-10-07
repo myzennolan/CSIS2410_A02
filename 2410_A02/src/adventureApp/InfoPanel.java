@@ -9,6 +9,8 @@ import javax.swing.JTextField;
  * It displays the players within the database.
  * @author Nolan Harris
  *
+ *
+ * Unused
  */
 public class InfoPanel extends JPanel {
 

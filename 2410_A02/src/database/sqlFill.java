@@ -1,5 +1,11 @@
 package database;
 
+/**
+ * SQL strings for populating the database tables.
+ * 
+ * @author Nolan Harris, Trevor Hodsdon, Dominick Wiley
+ *
+ */
 public class sqlFill {
 	
 	/**

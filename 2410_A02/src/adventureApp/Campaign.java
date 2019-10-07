@@ -3,7 +3,8 @@ package adventureApp;
  * This is the Campaign class of the Adventure Database Application. 
  * These represent the campaigns that each player will play through 
  * within the application.
- * @author Trevor Hodson
+ * 
+ * @author Nolan Harris, Trevor Hodson, and Dominick Wiley
  *
  */
 public class Campaign {
@@ -16,59 +17,83 @@ public class Campaign {
 	private int availableExp;
 	
 	// getters and setters
+
+	/**
+	 * Returns the name of the Campaign. 
+	 * 
+	 * @return Name
+	 */
 	public String getName() {
 		return Name;
 	}
 
-	public void setName(String name) {
-		Name = name;
-	}
-
+	/**
+	 * Returns the setting of the Campaign.
+	 * 
+	 * @return Level
+	 */
 	public String getSetting() {
 		return Setting;
 	}
 
-	public void setSetting(String setting) {
-		Setting = setting;
-	}
 
+	/**
+	 * Returns the description of the Campaign.
+	 * 
+	 * @return Level
+	 */
 	public String getDescription() {
 		return Description;
 	}
 
-	public void setDescription(String description) {
-		Description = description;
-	}
 
+	/**
+	 * Returns the minimum level requirement of the campaign.
+	 * 
+	 * @return Level
+	 */
 	public Integer getLevelLow() {
 		return levelLow;
 	}
 
-	public void setLevelLow(int levelLow) {
-		this.levelLow = levelLow;
-	}
-
+	/**
+	 * Returns the maximum level of the campaign where a character can still earn experience.
+	 * 
+	 * @return Level
+	 */
 	public Integer getLevelHigh() {
 		return levelHigh;
 	}
 
-	public void setLevelHigh(int levelHigh) {
-		this.levelHigh = levelHigh;
-	}
-
+	/**
+	 * Returns the experience vailable to characters in the level range of the campaign.
+	 * 
+	 * @return Level
+	 */
 	public Integer getAvailableExp() {
 		return availableExp;
 	}
 
-	public void setAvailableExp(int availableExp) {
-		this.availableExp = availableExp;
-	}
-
+	/**
+	 * Returns the id of the Campaign. 
+	 * 
+	 * @return id
+	 */
 	public int getId() {
 		return id;
 	}
 	//end of getters and setters
 
+	/**
+	 * Instantiates a new Campaign.
+	 * @param id
+	 * @param name
+	 * @param setting
+	 * @param description
+	 * @param levelLow
+	 * @param levelHigh
+	 * @param availableExp
+	 */
 	public Campaign(int id, String name, String setting, String description, int levelLow, int levelHigh,
 			int availableExp) {
 		super();

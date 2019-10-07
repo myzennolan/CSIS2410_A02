@@ -34,7 +34,7 @@ public class AdventureGUI extends JFrame {
 //test
 	
 	/**
-	 * 
+	 *  Eclipse AUto generated ID
 	 */
 	private static final long serialVersionUID = -4999898966177525198L;
 
@@ -379,8 +379,11 @@ public class AdventureGUI extends JFrame {
 		
 	}
 
+	/**
+	 * Refreshes the available buttons on the Campaign Panel
+	 * @param b unused
+	 */
 	private void refreshCampaignsPanel(boolean b) {
-		// TODO Auto-generated method stub
 				campaignList.removeAll();
 				campaigns = DB.getCampaigns(0);
 
@@ -443,8 +446,11 @@ public class AdventureGUI extends JFrame {
 		
 	}
 
+	/**
+	 * Refreshes the available buttons on the Characters Panel
+	 * @param removeOld unused
+	 */
 	protected void refreshCharactersPanel(boolean removeOld) {
-		// TODO Auto-generated method stub
 		characterList.removeAll();
 		advCharacters = DB.getPlayerCharacters(selectedPlayer);
 
@@ -689,11 +695,10 @@ public class AdventureGUI extends JFrame {
 	}
 	
 	
+
 	/**
-	 * panel refresh method
-	 * removes old records from the  before repopulating 
-	 * 
-	 * @param removeOld
+	 * Refreshes the available buttons on the Players Panel
+	 * @param removeOld unused
 	 */
 	private void refreshPlayersPanel(Boolean removeOld) {
 		if(removeOld) {
@@ -760,7 +765,7 @@ public class AdventureGUI extends JFrame {
 	}
 
 	/**
-	 * 
+	 * Helper method to prep for fresh entry
 	 */
 	private void resetCharacterInfoPanel() {
 		txtCharacterName.setText("");
@@ -777,7 +782,7 @@ public class AdventureGUI extends JFrame {
 	}
 
 	/**
-	 * 
+	 * Helper method to prep for fresh entry
 	 */
 	private void resetCampaignInfoPanel() {
 		txtCampaignName.setText("");
@@ -790,7 +795,7 @@ public class AdventureGUI extends JFrame {
 	}
 
 	/**
-	 * 
+	 * Helper method to prep for fresh entry
 	 */
 	private void resetPlayerInfoPanel() {
 		txtFirstName.setText("");
